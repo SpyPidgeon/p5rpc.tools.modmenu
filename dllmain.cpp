@@ -1,34 +1,14 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
-#include "SDL3/SDL.h"
-#include <sstream>
 #include "guistructs.h"
 
 HMODULE dll_handle;
-static SDL_Window *window = nullptr;
-static SDL_Renderer* renderer = nullptr;
-static SDL_Surface *background = nullptr;
+SDL_Window *window = nullptr;
+SDL_Renderer* renderer = nullptr;
+SDL_Surface *background = nullptr;
 
 std::vector<GUIElement*> guiElements;
 GUIElement* activeElement;
 
 TTF_Font* windowFont;
-int32_t* money;
-
-std::string GetDLLPath(const std::string& path)
-{
-    char dllPath[MAX_PATH] = { 0 };
-    GetModuleFileNameA(dll_handle, dllPath, MAX_PATH);
-
-    std::string fullPath(dllPath);
-
-    size_t lastSlash = fullPath.find_last_of("\\/");
-    std::string baseDirectory = (lastSlash != std::string::npos) ? fullPath.substr(0, lastSlash + 1) : "";
-
-    std::ostringstream ss;
-    ss << baseDirectory << path;
-
-    return ss.str();
-}
 
 void GetMainMonitorResolution(int& w, int& h)
 {
@@ -58,12 +38,10 @@ int WINAPI ModMenuMain()
     int h;
     GetMainMonitorResolution(w, h);
 
-    windowFont = TTF_OpenFont(GetDLLPath("font\\arial.ttf").c_str(), h * 0.05f);
-
     w /= 4;
     h /= 4;
 
-    SDL_CreateWindowAndRenderer("Mod Menu",w,h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP,&window,&renderer);
+    SDL_CreateWindowAndRenderer("SpyPigeon's Mod Menu",w,h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP,&window,&renderer);
 
     int top, left, bottom, right;
     SDL_GetWindowBordersSize(window, &top, &left, &bottom, &right);
@@ -78,20 +56,18 @@ int WINAPI ModMenuMain()
     if (!background)
         return 1;
 
+    TTF_Init();
+    windowFont = TTF_OpenFont(GetDLLPath("font\\arial.ttf").c_str(), h * 0.05f);
+
+
+    GUIElement test;
+    test.borderOnly = true;
+    test.mainTexture->LoadTextTexture("Test", SDL_Color{ 255,255,255,255 });
+
+    guiElements.push_back(&test);
+
     SDL_Event e;
     bool quit = false;
-
-    Button getMoney = Button();
-
-    getMoney.Behavior = &SetMoney;
-    getMoney.rect = new SDL_FRect();
-    getMoney.rect->x = w / 2;
-    getMoney.rect->y = h / 2;
-    getMoney.rect->w = 100;
-    getMoney.rect->h = 100;
-
-    guiElements.push_back((GUIElement*)&getMoney);
-    money = (int32_t*)(0x1428551fc);
 
     while (!quit)
     {
@@ -111,39 +87,21 @@ int WINAPI ModMenuMain()
             case SDL_EVENT_WINDOW_FOCUS_LOST:
                 break;
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                if (e.button.button == SDL_BUTTON_LEFT)
-                {
-                    POINT start;
-                    start.x = getMoney.rect->x;
-                    start.y = getMoney.rect->y;
-                    
-                    POINT end;
-                    end.x = start.x + getMoney.rect->w;
-                    end.y = start.y + getMoney.rect->h;
-
-                    POINT cursor;
-                    GetCursorPos(&cursor);
-                    ScreenToClient(GetForegroundWindow(), &cursor);
-
-                    if (AABBMouseCheck(start, end, cursor))
-                    {
-                        getMoney.Behavior();
-                    }
-                }
                 break;
             }
         }
 
-        SDL_FillSurfaceRect(background, nullptr, SDL_MapSurfaceRGB(background,66,66,66));
+        SDL_RenderClear(renderer);
+
+        SDL_FillSurfaceRect(background, nullptr, SDL_MapSurfaceRGB(background,66,66,128));
         SDL_UpdateWindowSurface(window);
 
-        RenderGUI(window, renderer);
+        RenderGUI();
 
         SDL_RenderPresent(renderer);
     }
 
     guiElements.clear();
-    delete(getMoney.rect);
 
     TTF_CloseFont(windowFont);
     TTF_Quit();
@@ -167,6 +125,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
         dll_handle = hModule;
+        FILE* newOut;
+        freopen_s(&newOut, "CONOUT$", "w", stdout);
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:

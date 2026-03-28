@@ -1,43 +1,115 @@
 #include "guistructs.h"
 
-bool AABBMouseCheck(POINT boxStart, POINT boxEnd, POINT cursorPosition)
+//--------------------------------------------------
+// Texture
+//--------------------------------------------------
+std::string GetDLLPath(const std::string& path)
 {
-	if (cursorPosition.x > boxStart.x &&
-		cursorPosition.y > boxStart.y &&
-		cursorPosition.x < boxEnd.x &&
-		cursorPosition.y < boxEnd.y)
-	{
-		return true;
-	}
+	char dllPath[MAX_PATH] = { 0 };
+	GetModuleFileNameA(dll_handle, dllPath, MAX_PATH);
 
-	return false;
+	std::string fullPath(dllPath);
+
+	size_t lastSlash = fullPath.find_last_of("\\/");
+	std::string baseDirectory = (lastSlash != std::string::npos) ? fullPath.substr(0, lastSlash + 1) : "";
+
+	std::ostringstream ss;
+	ss << baseDirectory << path;
+
+	return ss.str();
 }
 
-void RenderGUI(SDL_Window* window,SDL_Renderer* renderer)
+Texture::Texture()
 {
-	for (auto& element : guiElements)
+	texture = nullptr;
+	width = 0;
+	height = 0;
+}
+
+bool Texture::LoadTexture(const std::string& path)
+{
+	Free();
+
+	SDL_Surface* textureSurface = IMG_Load(GetDLLPath(path).c_str());
+	if (textureSurface == nullptr)
+		return false;
+
+	texture = SDL_CreateTextureFromSurface(renderer, textureSurface);
+
+	if (texture == nullptr)
 	{
-		element->Render(renderer);
+		SDL_DestroySurface(textureSurface);
+		return false;
 	}
 
-	SDL_RenderPresent(renderer);
+	width = texture->w;
+	height = texture->h;
+
+	SDL_DestroySurface(textureSurface);
+
+	return true;
+}
+
+bool Texture::LoadTextTexture(const std::string& text,const SDL_Color color)
+{
+	if (texture != nullptr)
+		Free();
+
+	printf("Creating surface...\n");
+	SDL_Surface* textureSurface = TTF_RenderText_Blended(windowFont, text.c_str(), text.length(), color);
+
+	if (textureSurface == nullptr)
+	{
+		printf("Surface failed to create: %s\n", SDL_GetError());
+		return false;
+	}
+
+	texture = SDL_CreateTextureFromSurface(renderer, textureSurface);
+
+	if (texture == nullptr)
+	{
+		SDL_DestroySurface(textureSurface);
+		return false;
+	}
+
+	width = texture->w;
+	height = texture->h;
+
+	SDL_DestroySurface(textureSurface);
+
+	return true;
+}
+
+void Texture::Free()
+{
+	SDL_DestroyTexture(texture);
+	width = 0;
+	height = 0;
+	texture = nullptr;
+
+	return;
 }
 
 //--------------------------------------------------
 // GUIElement
 //--------------------------------------------------
-void GUIElement::Render(SDL_Renderer* renderer)
+void GUIElement::Render()
 {
 	if (!borderOnly)
 	{
 		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-		SDL_RenderFillRect(renderer, rect);
+		SDL_RenderFillRect(renderer, &rect);
+	}
+
+	if (mainTexture != NULL)
+	{
+		SDL_RenderTexture(renderer, mainTexture->GetTexture(), NULL, &rect);
 	}
 
 	if (borderColor.a != 0)
 	{
 		SDL_SetRenderDrawColor(renderer, borderColor.r, borderColor.g, borderColor.b, borderColor.a);
-		SDL_RenderRect(renderer, rect);
+		SDL_RenderRect(renderer, &rect);
 	}
 
 	if (name != "")
@@ -50,7 +122,7 @@ void GUIElement::Render(SDL_Renderer* renderer)
 //--------------------------------------------------
 // TextBox
 //--------------------------------------------------
-void TextBox::Render(SDL_Renderer* renderer)
+void TextBox::Render()
 {
 	GUIElement::Render(renderer);
 
@@ -70,7 +142,28 @@ void Button::Interact()
 	Behavior();
 }
 
-void SetMoney()
+//--------------------------------------------------
+// Rendering
+//--------------------------------------------------
+bool AABBMouseCheck(POINT boxStart, POINT boxEnd, POINT cursorPosition)
 {
-	*money = 99999;
+	if (cursorPosition.x > boxStart.x &&
+		cursorPosition.y > boxStart.y &&
+		cursorPosition.x < boxEnd.x &&
+		cursorPosition.y < boxEnd.y)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void RenderGUI()
+{
+	for (auto& element : guiElements)
+	{
+		element->Render();
+	}
+
+	SDL_RenderPresent(renderer);
 }
