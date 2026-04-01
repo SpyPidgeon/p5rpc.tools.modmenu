@@ -3,12 +3,7 @@
 HMODULE dll_handle;
 SDL_Window *window = nullptr;
 SDL_Renderer* renderer = nullptr;
-SDL_Surface *background = nullptr;
-
-std::vector<GUIElement*> guiElements;
-GUIElement* activeElement;
-
-TTF_Font* windowFont;
+ImFont* windowFont;
 
 void GetMainMonitorResolution(int& w, int& h)
 {
@@ -39,7 +34,7 @@ int WINAPI ModMenuMain()
     GetMainMonitorResolution(w, h);
 
     w /= 4;
-    h /= 4;
+    h /= 3;
 
     SDL_CreateWindowAndRenderer("SpyPigeon's Mod Menu",w,h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP,&window,&renderer);
 
@@ -51,60 +46,54 @@ int WINAPI ModMenuMain()
     if (!window)
         return 1;
 
-    background = SDL_GetWindowSurface(window);
-
-    if (!background)
-        return 1;
-
-    TTF_Init();
-    windowFont = TTF_OpenFont(GetDLLPath("font\\arial.ttf").c_str(), h * 0.05f);
-
-
-    GUIElement test;
-    test.borderOnly = true;
-    test.mainTexture->LoadTextTexture("Test", SDL_Color{ 255,255,255,255 });
-
-    guiElements.push_back(&test);
-
     SDL_Event e;
     bool quit = false;
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.03f);
+
+    ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
+    ImGui_ImplSDLRenderer3_Init(renderer);
+
     while (!quit)
     {
-        if (GetAsyncKeyState(VK_BACK))
-            break;
-
         while (SDL_PollEvent(&e) == true)
         {
+            ImGui_ImplSDL3_ProcessEvent(&e);
+
             switch (e.type)
             {
             case SDL_EVENT_QUIT:
                 quit = true;
                 break;
-            case SDL_EVENT_WINDOW_RESIZED:
-                background = SDL_GetWindowSurface(window);
-                break;
             case SDL_EVENT_WINDOW_FOCUS_LOST:
                 break;
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                break;
+            case SDL_EVENT_MOUSE_MOTION:
                 break;
             }
         }
 
         SDL_RenderClear(renderer);
 
-        SDL_FillSurfaceRect(background, nullptr, SDL_MapSurfaceRGB(background,66,66,128));
-        SDL_UpdateWindowSurface(window);
-
-        RenderGUI();
+        ImGui_ImplSDL3_NewFrame();
+        ImGui_ImplSDLRenderer3_NewFrame();
+        ImGui::NewFrame();
+        ImGui::ShowDemoWindow();
+        ImGui::Render();
+        ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
 
         SDL_RenderPresent(renderer);
     }
 
-    guiElements.clear();
+    io.Fonts->RemoveFont(windowFont);
 
-    TTF_CloseFont(windowFont);
-    TTF_Quit();
+    ImGui_ImplSDL3_Shutdown();
+    ImGui_ImplSDLRenderer3_Shutdown();
+    ImGui::DestroyContext();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
