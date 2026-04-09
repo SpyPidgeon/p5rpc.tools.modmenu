@@ -17,23 +17,105 @@ extern SDL_Renderer* renderer;
 extern HMODULE dll_handle;
 
 std::string GetDLLPath(const std::string& path);
+void HelpMarker(const char* desc);
+
+enum class AreaTypes : uint8_t
+{
+	Unusable,
+	UsableInField,
+	UsableInBattle,
+	UsableInBoth
+};
+
+enum class Conditions : uint8_t
+{
+	UnknownShowtimeRelated = 1,
+	StopContinuousUsageForExplosion = 2,
+	UnknownForMaruki = 4,
+	UnknownForSegamiRice = 8,
+	UsableOnlyForAmbush = 16
+};
+
+enum class CasterEffect2 : uint8_t
+{
+	NoCasterEffect,
+	KOSelf,
+	MeleeContact,
+	SummonAlly_CRASH_WARNING = 4,
+	SupportRelated = 8,
+	KillSelfAfterCast = 9,
+	UsePercentageSP = 16,
+	RecarmdraRelated = 24,
+	SaeRouletteSkill = 32,
+	TrafuriRelated = 40,
+	FollowUpRelated = 66,
+	RouletteRelated1 = 128,
+	UnknownForMaruki = 130,
+	RouletteRelated2 = 136,
+	UnknownCasterEffect_CRASH_WARNING = 160
+};
+
+enum class CasterEffect1 : uint8_t
+{
+	NoCasterEffect,
+	SpecialMoveRelated,
+	ModifiedByEquippedGun,
+	ReduceOwnHPTo1 = 4,
+	StealInfoRelated = 32
+};
+
+enum class DamageStatType : uint8_t
+{
+	NoStat,
+	Strength,
+	Magic
+};
+
+enum class CostType : uint8_t
+{
+	NoCost,
+	HP,
+	SP
+};
+
+enum class SkillType : uint8_t
+{
+	MagicSkill,
+	PhysicalSkill
+};
+
+enum class TargetType : uint8_t
+{
+	SingleTarget,
+	MultiTarget,
+	MultiTargetExceptSelf,
+	PlumeOfDuskRelated
+};
+
+enum TargetFlags : uint8_t
+{
+	Allies = 1 << 0,
+	Enemies = 1 << 1
+};
+
+
 
 #pragma pack(push,1)
 struct ActiveSkill
 {
-	uint8_t casterEffect2;
-	uint8_t casterEffect1;
-	uint8_t conditionUsage;	
+	CasterEffect2 casterEffect2;
+	CasterEffect1 casterEffect1;
+	Conditions conditionUsage;	
 	uint8_t unkr0;	
-	uint8_t areaType;	
+	AreaTypes areaType;	
 	uint8_t unkr1;
-	uint8_t damageStatType;
-	uint8_t costType;
+	DamageStatType damageStatType;
+	CostType costType;
 	uint16_t cost;	
-	uint8_t skillType;	
+	SkillType skillType;	
 	uint8_t multiplyCost;	
-	uint8_t targetType;
-	BYTE validTargetFlags;	
+	TargetType targetType;
+	TargetFlags validTargetFlags;	
 	uint8_t targetRestrictions;	
 	uint8_t unk0;	
 	uint8_t unk1;	

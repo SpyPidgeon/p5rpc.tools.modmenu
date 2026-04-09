@@ -5,6 +5,7 @@ HMODULE dll_handle;
 SDL_Window *window = nullptr;
 SDL_Renderer* renderer = nullptr;
 ImFont* windowFont;
+ImSettings activeSkillConfig;
 
 void GetMainMonitorResolution(int& w, int& h)
 {
@@ -45,16 +46,6 @@ void InitScan()
             ActiveSkillNames[i] = GetNameFromBinary(i, activeSkillNames);
         }
     }
-
-/*
-    for (auto& skill : ActiveSkillArray)
-    {
-        for (size_t i = 0; i < sizeof(ActiveSkill); i+=12)
-        {
-            *(uint32_t*)(&skill + i) = _byteswap_ulong(*(uint32_t*)&skill + i);
-        }
-    }
-    */
 }
 
 int WINAPI ModMenuMain()
@@ -92,6 +83,11 @@ int WINAPI ModMenuMain()
 
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
+
+    activeSkillConfig = ImSettings();
+    activeSkillConfig.push_member<&ActiveSkill::validTargetFlags>()
+        .as_flags()
+        .pop();
 
     while (!quit)
     {
