@@ -190,7 +190,28 @@ enum class OtherBuffs : uint8_t
 
 enum class ExtraEffects : uint8_t
 {
-
+	NoEffect,
+	OnlyHitFear,
+	Escape,
+	BonusDamageOnDown,
+	ThrowMoney = 6,
+	MaleAlliesOnly,
+	FemaleAlliesOnly,
+	KillIfDizzy_UNTESTED,
+	DizzyDownOneMore_UNTESTED,
+	RandomResistChange_UNTESTED,
+	FoesWeakToBlessOrCurseTo1HP_UNTESTED,
+	AlwaysKill,
+	KillFoesWithAilments,
+	BigBangBurgerVisual_UNTESTED,
+	PowerUpIfSurrounded,
+	BatonPassDamageUp,
+	IgnoreResist,
+	TargetedChanceUp,
+	TargetedChanceWayUp,
+	IfHungerHealandCure,
+	CasterAttackWayDown,
+	TargetedChanceDown
 };
 
 #pragma pack(push,1)
@@ -233,10 +254,10 @@ struct ActiveSkill
 	CommonBuffs commonBuffs;
 	BreakSkills breakSkills;
 	Shield shields;
-	uint8_t otherBuffs;
+	OtherBuffs otherBuffs;
 	uint16_t reserve;
 	uint8_t unkr2;
-	uint8_t extraEffects;
+	ExtraEffects extraEffects;
 	uint8_t critChance;
 	bool forItem;
 	uint8_t unk7;

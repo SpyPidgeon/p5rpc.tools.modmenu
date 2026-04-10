@@ -88,6 +88,42 @@ int WINAPI ModMenuMain()
     activeSkillConfig.push_member<&ActiveSkill::validTargetFlags>()
         .as_flags()
         .pop();
+    activeSkillConfig.push_member<&ActiveSkill::effectChance>()
+        .as_slider()
+        .min(0)
+        .max(100)
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::critChance>()
+        .as_slider()
+        .min(0)
+        .max(100)
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::accuracy>()
+        .as_slider()
+        .min(0)
+        .max(100)
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::commonAilments1>()
+        .as_flags()
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::specialAilments>()
+        .as_flags()
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::commonAilments2>()
+        .as_flags()
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::buffsAndDebuffs>()
+        .as_flags()
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::commonBuffs>()
+        .as_flags()
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::shields>()
+        .as_flags()
+        .pop();
+    activeSkillConfig.push_member<&ActiveSkill::breakSkills>()
+        .as_flags()
+        .pop();
 
     while (!quit)
     {
