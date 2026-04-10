@@ -92,13 +92,106 @@ enum class TargetType : uint8_t
 	PlumeOfDuskRelated
 };
 
-enum TargetFlags : uint8_t
+enum class TargetFlags : uint8_t
 {
 	Allies = 1 << 0,
 	Enemies = 1 << 1
 };
 
+enum class CommonAilments : int8_t
+{
+	Burn = 1 << 0,
+	Freeze = 1 << 1,
+	Shock = 1 << 2,
+	Dizzy = 1 << 3,
+	Confuse = 1 << 4,
+	Fear = 1 << 5,
+	Forget = 1 << 6,
+	Hunger = 1 << 7
+};
 
+enum class CommonAilments2 : int8_t
+{
+	Sleep = 1 << 0,
+	Rage = 1 << 1,
+	Despair = 1 << 2,
+	Brainwash = 1 << 3,
+	Desperation = 1 << 4,
+	Berserk = 1 << 5,
+	Panic = 1 << 6,
+	Lust = 1 << 7
+};
+
+enum class SpecialAilments : int8_t
+{
+	Wrath = 1 << 0,
+	Jealousy = 1 << 1,
+	WeakToAll = 1 << 2,
+	Unconscious = 1 << 3,
+	KnockDown = 1 << 4,
+	Gluttony = 1 << 5,
+	Mouse = 1 << 6,
+	Counter = 1 << 7
+};
+
+enum class BuffsAndDebuffs : int8_t
+{
+	AtkUp = 1 << 0,
+	AtkDown = 1 << 1,
+	EvadeUp = 1 << 2,
+	EvadeDown = 1 << 3,
+	DefUp = 1 << 4,
+	DefDown = 1 << 5,
+	AccuracyUp = 1 << 6,
+	AccuracyDown = 1 << 7
+};
+
+enum class CommonBuffs : int8_t
+{
+	Charge = 1 << 0,
+	Concentrate = 1 << 1,
+	RemoveBuffs = 1 << 2,
+	RemoveDebuffs = 1 << 3,
+	CrtiUp = 1 << 4,
+	CritWayUp = 1 << 5,
+	PhysShield = 1 << 6,
+	MagShield = 1 << 7
+};
+
+enum class BreakSkills : int8_t
+{
+	Fire = 1 << 0,
+	Ice = 1 << 1,
+	Electric = 1 << 2,
+	Wind = 1 << 3,
+	Nuke = 1 << 4,
+	Psy = 1 << 5,
+	AilmentSusception = 1 << 6,
+	BreakPhysShield = 1 << 7
+};
+
+enum class Shield : int8_t
+{
+	BreakMagShield = 1 << 0,
+	InstakillShield = 1 << 1,
+	Fire = 1 << 2,
+	Ice = 1 << 3,
+	Electric = 1 << 4,
+	Wind = 1 << 5,
+	Nuke = 1 << 6,
+	Psy = 1 << 7
+};
+
+enum class OtherBuffs : uint8_t
+{
+	None,
+	UniversalShieldDrain = 2
+};
+
+enum class ExtraEffects : uint8_t
+{
+
+};
 
 #pragma pack(push,1)
 struct ActiveSkill
@@ -132,14 +225,14 @@ struct ActiveSkill
 	uint16_t spRestoreValue;
 	uint8_t applyOrCure;
 	uint8_t effectChance;
-	BYTE commonAilments1;
+	CommonAilments commonAilments1;
 	uint8_t unk6;
-	BYTE specialAilments;
-	BYTE commonAilments2;
-	BYTE buffsAndDebuffs;
-	BYTE commonBuffs;
-	BYTE breakSkills;
-	BYTE shields;
+	SpecialAilments specialAilments;
+	CommonAilments2 commonAilments2;
+	BuffsAndDebuffs buffsAndDebuffs;
+	CommonBuffs commonBuffs;
+	BreakSkills breakSkills;
+	Shield shields;
 	uint8_t otherBuffs;
 	uint16_t reserve;
 	uint8_t unkr2;
