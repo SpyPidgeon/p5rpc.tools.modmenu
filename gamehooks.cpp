@@ -1,7 +1,18 @@
 #include "gamehooks.h"
 
 std::array<ActiveSkill, ACTIVE_SKILL_SIZE> ActiveSkillArray;
-std::array<std::string, ACTIVE_SKILL_SIZE> ActiveSkillNames;
+std::array<ActiveSkill, ACTIVE_SKILL_SIZE>* ActiveSkillsPTR;
+
+std::array<std::string, SKILL_ELEMENT_SIZE> SkillNames;
+std::array<std::string, PERSONA_LIST_SIZE> personaNames;
+
+std::array<SkillElement, SKILL_ELEMENT_SIZE> SkillElementArray;
+
+std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
+
+GetDatUnitByID GetDatUnit;
+std::array<std::pair<DatUnit, std::string>, PARTY_MAX> partyMembers;
+std::array<DatUnit*, PARTY_MAX> partyMemberPTRs;
 
 std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress)
 {
