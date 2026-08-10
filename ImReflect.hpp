@@ -4276,8 +4276,41 @@ namespace ImReflect {
 			for (const auto& name : enum_names) {
 				item_vec.push_back(name.data());
 			}
+			std::string preview;
+			for (int i = 0; i < enum_values.size(); i++)
+			{
+				if (std::to_underlying(enum_values[i]) == int_value)
+				{
+					preview = item_vec[i];
+					break;
+				}
+			}
 
-			changed = ImGui::Combo(label, &int_value, item_vec.data(), enum_count);
+			ImGui::PushTextWrapPos();
+			ImGui::TextUnformatted(std::to_string(int_value).c_str());
+			ImGui::PopTextWrapPos();
+			ImGui::SameLine();
+//			changed = ImGui::Combo(label, &int_value, item_vec.data(), enum_count);
+
+			if (ImGui::BeginCombo(label,preview.c_str()))
+			{
+				for (int i = 0; i < item_vec.size(); i++)
+				{
+					bool is_selected = (preview.c_str() == item_vec[i]);
+
+					if (ImGui::Selectable(item_vec[i], is_selected))
+					{
+						int_value = std::to_underlying(enum_values[i]);
+						preview = item_vec[i] + '(' + std::to_string(int_value) + ')';
+						changed = true;
+					}
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+
+				ImGui::EndCombo();
+			}
+
 			if constexpr (is_const == false) value = static_cast<E>(int_value);
 			else ImReflect::Detail::imgui_tooltip("Value is const");
 		}
@@ -4316,13 +4349,24 @@ namespace ImReflect {
 			ImGui::TextUnformatted(label);
 			ImGui::PopTextWrapPos();
 
-			int int_value = static_cast<int>(value);
-			for (const auto& value : enum_values)
+			uint64_t int_value = static_cast<uint64_t>(value);
+			int row = 1;
+			for (uint32_t i = 0; i < enum_values.size(); i++)
 			{
-				const char* name = magic_enum::enum_name(value).data();
-				changed = ImGui::CheckboxFlags(name, &int_value, std::to_underlying(value));
+				const auto& value = enum_values[i];
 
-				if (value != enum_values.back())
+				std::string name = magic_enum::enum_name(value).data();
+				changed = ImGui::CheckboxFlags(name.c_str(), &int_value, std::to_underlying(value));
+
+				bool changeRow = false;
+
+				if (i > row * 5)
+				{
+					row++;
+					changeRow = true;
+				}
+				
+				if (value != enum_values.back() && !changeRow)
 					ImGui::SameLine();
 			}
 
