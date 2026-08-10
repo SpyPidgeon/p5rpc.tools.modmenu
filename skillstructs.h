@@ -41,6 +41,40 @@ enum class CasterEffect2 : uint8_t
 	UnknownCasterEffect_CRASH_WARNING = 160
 };
 
+enum class DamageHealType : uint8_t
+{
+	NoDamageOrHealing,
+	DealDamage,
+	RestoreHealth,
+	SetHP,
+	DealExactDamage,
+	RestoreExactHealth,
+	UnkDamage6,
+	UnkHealing7,
+	DamagePercentCurrentHP,
+	RestorePercentCurrentHP,
+	DamagePercentMaxHP,
+	RestorePercentMaxHP,
+	DrainDamage,
+	DrainExactDamage,
+	UnkDamage14,
+	RestoreHealthWhiffChance,
+	DamageBasedOnHealthyParty
+};
+
+enum class SPEffect : uint8_t
+{
+	NoEffect,
+	DepleteFixedSP = 4,
+	RestoreSP = 5,
+	DepleteSP = 8,
+	UnkRestoreSP = 9,
+	DepletePercentMaxSP = 10,
+	RestorePercentMaxSP = 11,
+	DrainSPBasedOnMagic = 12,
+	DrainFixedSP = 13
+};
+
 enum class CasterEffect1 : uint8_t
 {
 	NoCasterEffect,
@@ -236,9 +270,9 @@ struct ActiveSkill
 	uint8_t accuracy;
 	uint8_t minHits;
 	uint8_t maxHits;
-	uint8_t damageOrHeal;
+	DamageHealType damageOrHeal;
 	uint16_t damageValue;
-	uint8_t spEffect;
+	SPEffect spEffect;
 	uint8_t unk5;
 	uint16_t spRestoreValue;
 	uint8_t applyOrCure;

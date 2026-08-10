@@ -8,6 +8,8 @@ SDL_Renderer* renderer = nullptr;
 ImFont* windowFont;
 ImSettings config;
 
+const char* windowName = "SpyPigeon's Mod Menu";
+
 void GetMainMonitorResolution(int& w, int& h)
 {
     HMONITOR monitor = MonitorFromWindow(GetForegroundWindow(), MONITOR_DEFAULTTOPRIMARY);
@@ -107,7 +109,7 @@ int WINAPI ModMenuMain()
     w /= 4;
     h /= 2;
 
-    SDL_CreateWindowAndRenderer("SpyPigeon's Mod Menu",w,h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP,&window,&renderer);
+    SDL_CreateWindowAndRenderer(windowName,w,h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP,&window,&renderer);
 
     int top, left, bottom, right;
     SDL_GetWindowBordersSize(window, &top, &left, &bottom, &right);
