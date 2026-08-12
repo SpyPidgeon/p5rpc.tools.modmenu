@@ -1,6 +1,7 @@
 #include "gamehooks.h"
 #include "skillstructs.h"
 #include "signaturescan.h"
+#include <type_traits>
 
 HMODULE dll_handle;
 SDL_Window *window = nullptr;
@@ -92,6 +93,38 @@ void InitScan()
     fileArrayStart = GetAddressFromGlobalRef(fileArrayStart);
 
     gfdFiles = (std::array<GFDFileInfo, FILE_ARRAY_SIZE>*)fileArrayStart;
+
+    pattern = "48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 48 8D 05 ?? ?? ?? ?? 48 89 44 24 ?? 41 0F B7 C6";
+    DWORD_PTR inventoryAddresses = PatternScan(GetModuleHandle(NULL), pattern);
+    std::array<DWORD_PTR,9> itemAddresses;
+
+    // Getting correct offsets
+    for (int i = 0; i < 9; i++)
+    {
+        int offset = i * 12;
+        itemAddresses[i] = GetAddressFromGlobalRef(inventoryAddresses + offset);
+
+        if (i != 4)
+            itemAddresses[i] = GetAddressFromGlobalRef(itemAddresses[i] + 17);
+        else
+            itemAddresses[i] = GetAddressFromGlobalRef(itemAddresses[i] + 10);
+    }
+
+    pattern = "48 8B 0D ?? ?? ?? ?? 48 89 1D ?? ?? ?? ?? 48 85 C9 74 ?? E8 ?? ?? ?? ?? 41 B8 04 00 00 00";
+    DWORD_PTR rangedNameAddress = PatternScan(GetModuleHandle(NULL), pattern);
+    DWORD_PTR otherItemsNameAddress = rangedNameAddress - 360;
+    std::array<DWORD_PTR, 9> itemNameAddresses;
+
+    itemNameAddresses[8] = *(DWORD_PTR*)GetAddressFromGlobalRef(rangedNameAddress);
+
+    for (int i = 0; i < 8; i++)
+    {
+        int offset = i * 24;
+        itemNameAddresses[i] = *(DWORD_PTR*)GetAddressFromGlobalRef(otherItemsNameAddress + offset);
+    }
+
+    SetInventoryAddresses(playerInventory, itemAddresses);
+    SetInventoryNames(playerInventory, itemNameAddresses);
 }
 
 int WINAPI ModMenuMain()
@@ -219,6 +252,11 @@ int WINAPI ModMenuMain()
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
                 break;
             case SDL_EVENT_MOUSE_MOTION:
+                break;
+            case SDL_EVENT_WINDOW_MOVED:
+                GetMainMonitorResolution(w, h);
+                w /= 4;
+                h /= 2;
                 break;
             }
         }

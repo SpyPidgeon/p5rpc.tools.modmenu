@@ -126,6 +126,26 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, PersonaID& value, ImSet
 	ImReflect::Detail::check_input_states(persona_response);
 }
 
+// Inventory
+void tag_invoke(ImReflect::ImInput_t, const char* label, Inventory& value, ImSettings& settings, ImResponse& response)
+{
+	auto& item_response = response.get<Inventory>();
+
+	bool changed = false;
+	if (ImGui::CollapsingHeader(label))
+	{
+		visit_struct::for_each(value,[&changed](const char* name, auto& member)
+		{
+				member.RenderSliders(name, changed);
+		});
+	}
+
+	if (changed)
+		item_response.changed();
+
+	ImReflect::Detail::check_input_states(item_response);
+}
+
 // Rendering Code
 extern ImSettings config;
 using std::format;
@@ -142,6 +162,7 @@ void RenderSkillTBL()
 				oss << std::setw(3) << std::setfill('0') << i;
 
 				std::string name = "ID: " + oss.str() + " | " + SkillNames[i];
+
 				if (ImGui::CollapsingHeader(name.c_str()))
 				{
 					ImReflect::Input(name.c_str(), SkillElementArray[i], config);
@@ -205,6 +226,8 @@ void RenderStructWidgets()
 			{
 				partyMembers[i].first = *partyMemberPTRs[i];
 			}
+
+			RefreshFullInventory(playerInventory);
 		}
 
 		if (ImGui::BeginTabBar("Tabs"))
@@ -213,6 +236,16 @@ void RenderStructWidgets()
 			{
 				RenderSkillTBL();
 
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Items"))
+			{
+				if (ImGui::Button("Apply Inventory Changes"))
+				{
+					ApplyAllInventoryValues(playerInventory);
+				}
+				ImReflect::Input("PlayerInventory", playerInventory);
 				ImGui::EndTabItem();
 			}
 
