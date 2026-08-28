@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{cdda7327-00fc-427c-88a9-27295400b8df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui\Backends">
+      <UniqueIdentifier>{797ef051-ca4c-4751-82c6-93ff3be6d01e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hooks">
+      <UniqueIdentifier>{a7c69556-3fe9-476d-97a4-36c1ed2fcc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_structs">
+      <UniqueIdentifier>{8de6b2d6-150b-4221-82b8-88efe8bf6f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui">
+      <UniqueIdentifier>{4d1d9334-1103-4a4a-ab1b-cf7c2214dcea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdl3.h">
+      <Filter>ImGui\Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdlrenderer3.h">
+      <Filter>ImGui\Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\misc\cpp\imgui_stdlib.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\gamehooks.h">
+      <Filter>Source Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\signaturescan.h">
+      <Filter>Source Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="game_structs\battlestructs.h">
+      <Filter>Source Files\game_structs</Filter>
+    </ClInclude>
+    <ClInclude Include="game_structs\guistructs.h">
+      <Filter>Source Files\game_structs</Filter>
+    </ClInclude>
+    <ClInclude Include="game_structs\skillstructs.h">
+      <Filter>Source Files\game_structs</Filter>
+    </ClInclude>
+    <ClInclude Include="game_structs\filestructs.h">
+      <Filter>Source Files\game_structs</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\displaystructwindow.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\ImReflect.hpp">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdl3.cpp">
+      <Filter>ImGui\Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdlrenderer3.cpp">
+      <Filter>ImGui\Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\gamehooks.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\signaturescan.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="game_structs\battlestructs.cpp">
+      <Filter>Source Files\game_structs</Filter>
+    </ClCompile>
+    <ClCompile Include="game_structs\guistructs.cpp">
+      <Filter>Source Files\game_structs</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\displaystructwindow.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

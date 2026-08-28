@@ -61,7 +61,7 @@ struct InventoryType
 
 	void RenderSliders(const char* name,bool &changed)
 	{
-		const char* label = std::format("{} | {:X}", name, namesAddress).c_str();
+		const char* label = std::format("{} | {:X}", name, address).c_str();
 		if (ImGui::CollapsingHeader(label))
 		{
 			for (int i = 0; i < items.size(); i++)

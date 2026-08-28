@@ -115,13 +115,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\ProgrammingDependencies\SDL3-3.2.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\ProgrammingDependencies\SDL3-3.2.8\include;%(AdditionalIncludeDirectories);E:\Projects\Detours\include;E:\Projects\repos\P5RModMenu\game_structs;E:\Projects\repos\P5RModMenu\hooks;E:\Projects\repos\P5RModMenu\gui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>E:\ProgrammingDependencies\SDL3-3.2.8\lib\x64\SDL3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>E:\ProgrammingDependencies\SDL3-3.2.8\lib\x64\SDL3.lib;%(AdditionalDependencies);E:\Projects\Detours\lib.X64\detours.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,14 +134,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\ProgrammingDependencies\imgui\misc\cpp;E:\ProgrammingDependencies\imgui;E:\ProgrammingDependencies\SDL3_ttf-3.2.0\include;E:\ProgrammingDependencies\SDL3_image-3.2.4\include;E:\ProgrammingDependencies\SDL3-3.2.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\ProgrammingDependencies\imgui\misc\cpp;E:\ProgrammingDependencies\imgui;E:\ProgrammingDependencies\SDL3_ttf-3.2.0\include;E:\ProgrammingDependencies\SDL3_image-3.2.4\include;E:\ProgrammingDependencies\SDL3-3.2.8\include;%(AdditionalIncludeDirectories);E:\Projects\Detours\include;E:\Projects\repos\P5RModMenu\game_structs;E:\Projects\repos\P5RModMenu\hooks;E:\Projects\repos\P5RModMenu\gui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>E:\ProgrammingDependencies\SDL3-3.2.8\lib\x64\SDL3.lib;E:\ProgrammingDependencies\SDL3_ttf-3.2.0\lib\x64\SDL3_ttf.lib;E:\ProgrammingDependencies\SDL3_image-3.2.4\lib\x64\SDL3_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>E:\ProgrammingDependencies\SDL3-3.2.8\lib\x64\SDL3.lib;E:\ProgrammingDependencies\SDL3_ttf-3.2.0\lib\x64\SDL3_ttf.lib;E:\ProgrammingDependencies\SDL3_image-3.2.4\lib\x64\SDL3_image.lib;%(AdditionalDependencies);E:\Projects\Detours\lib.X64\detours.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -154,14 +154,14 @@
     <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\misc\cpp\imgui_stdlib.h" />
-    <ClInclude Include="displaystructwindow.h" />
-    <ClInclude Include="filestructs.h" />
-    <ClInclude Include="gamehooks.h" />
-    <ClInclude Include="guistructs.h" />
-    <ClInclude Include="ImReflect.hpp" />
-    <ClInclude Include="battlestructs.h" />
-    <ClInclude Include="signaturescan.h" />
-    <ClInclude Include="skillstructs.h" />
+    <ClInclude Include="game_structs\battlestructs.h" />
+    <ClInclude Include="game_structs\filestructs.h" />
+    <ClInclude Include="game_structs\guistructs.h" />
+    <ClInclude Include="game_structs\skillstructs.h" />
+    <ClInclude Include="gui\displaystructwindow.h" />
+    <ClInclude Include="gui\ImReflect.hpp" />
+    <ClInclude Include="hooks\gamehooks.h" />
+    <ClInclude Include="hooks\signaturescan.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdl3.cpp" />
@@ -171,21 +171,13 @@
     <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="battlestructs.cpp" />
-    <ClCompile Include="displaystructwindow.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="gamehooks.cpp" />
-    <ClCompile Include="guistructs.cpp" />
-    <ClCompile Include="signaturescan.cpp" />
+    <ClCompile Include="dx11_detour.cpp" />
+    <ClCompile Include="game_structs\battlestructs.cpp" />
+    <ClCompile Include="game_structs\guistructs.cpp" />
+    <ClCompile Include="gui\displaystructwindow.cpp" />
+    <ClCompile Include="hooks\gamehooks.cpp" />
+    <ClCompile Include="hooks\signaturescan.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\SDL3-VC.Redist.3.2.8\build\native\SDL3-VC.Redist.targets" Condition="Exists('packages\SDL3-VC.Redist.3.2.8\build\native\SDL3-VC.Redist.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\SDL3-VC.Redist.3.2.8\build\native\SDL3-VC.Redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SDL3-VC.Redist.3.2.8\build\native\SDL3-VC.Redist.targets'))" />
-  </Target>
 </Project>

@@ -194,6 +194,10 @@ void RenderSkillTBL()
 	}
 }
 
+void RenderCheats()
+{
+
+}
 
 bool alwaysOnTop = true;
 void RenderStructWidgets()
@@ -310,6 +314,12 @@ void RenderStructWidgets()
 					}
 				}
 
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Cheats"))
+			{
+				RenderCheats();
 				ImGui::EndTabItem();
 			}
 

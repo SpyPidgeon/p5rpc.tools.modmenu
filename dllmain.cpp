@@ -1,7 +1,9 @@
 #include "gamehooks.h"
-#include "skillstructs.h"
 #include "signaturescan.h"
+#include "skillstructs.h"
 #include <type_traits>
+#include <detours.h>
+#include "dx11_detour.h"
 
 HMODULE dll_handle;
 SDL_Window *window = nullptr;
@@ -129,7 +131,13 @@ void InitScan()
 
 int WINAPI ModMenuMain()
 {
-    Sleep(10000);
+    while (true)
+    {
+        Sleep(50);
+        if (GetAsyncKeyState(VK_F1))
+            break;
+    }
+
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
         return 1;
 
