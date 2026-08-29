@@ -2,34 +2,13 @@
 #include "signaturescan.h"
 #include "skillstructs.h"
 #include <type_traits>
-#include <detours.h>
 #include "dx11_detour.h"
 
 HMODULE dll_handle;
-SDL_Window *window = nullptr;
-SDL_Renderer* renderer = nullptr;
-ImFont* windowFont;
+extern ImFont* windowFont;
 ImSettings config;
 
 const char* windowName = "SpyPigeon's Mod Menu";
-
-void GetMainMonitorResolution(int& w, int& h)
-{
-    HMONITOR monitor = MonitorFromWindow(GetForegroundWindow(), MONITOR_DEFAULTTOPRIMARY);
-    MONITORINFO info;
-
-    info.cbSize = sizeof(MONITORINFO);
-    if (GetMonitorInfoA(monitor, &info))
-    {
-        w = info.rcMonitor.right - info.rcMonitor.left;
-        h = info.rcMonitor.bottom - info.rcMonitor.top;
-    }
-    else
-    {
-        w = 100;
-        h = 100;
-    }
-}
 
 void InitScan()
 {
@@ -129,6 +108,7 @@ void InitScan()
     SetInventoryNames(playerInventory, itemNameAddresses);
 }
 
+extern bool quit;
 int WINAPI ModMenuMain()
 {
     while (true)
@@ -138,157 +118,29 @@ int WINAPI ModMenuMain()
             break;
     }
 
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS))
-        return 1;
-
     InitScan();
 
-    int w;
-    int h;
-    GetMainMonitorResolution(w, h);
-
-    w /= 4;
-    h /= 2;
-
-    SDL_CreateWindowAndRenderer(windowName,w,h,SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALWAYS_ON_TOP,&window,&renderer);
-
-    int top, left, bottom, right;
-    SDL_GetWindowBordersSize(window, &top, &left, &bottom, &right);
-    SDL_SetWindowPosition(window,left,top);
-//    SDL_SetWindowOpacity(window, 0.75f);
-
-    if (!window)
-        return 1;
-
-    SDL_Event e;
-    bool quit = false;
-
     IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
+
+    if (!DX11Hook())
+    {
+        printf("Failed to hook dx11\n");
+        return 1;
+    }
+
+    printf("Loaded mod\n");
     ImGuiIO& io = ImGui::GetIO();
-    windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.025f);
-
-    ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
-    ImGui_ImplSDLRenderer3_Init(renderer);
-
-    config = ImSettings();
-    config.push_member<&ActiveSkill::validTargetFlags>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::effectChance>()
-        .as_slider()
-        .min(0)
-        .max(100)
-        .pop();
-    config.push_member<&ActiveSkill::critChance>()
-        .as_slider()
-        .min(0)
-        .max(100)
-        .pop();
-    config.push_member<&ActiveSkill::accuracy>()
-        .as_slider()
-        .min(0)
-        .max(100)
-        .pop();
-    config.push_member<&ActiveSkill::commonAilments1>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::specialAilments>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::commonAilments2>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::buffsAndDebuffs>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::commonBuffs>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::shields>()
-        .as_flags()
-        .pop();
-    config.push_member<&ActiveSkill::breakSkills>()
-        .as_flags()
-        .pop();
-
-    config.push_member<&SkillElement::inheritable>()
-        .as_slider()
-        .min(0)
-        .max(8)
-        .pop();
-
-    config.push_member < &DatUnit_Stats::strength>()
-        .as_slider()
-        .min(0)
-        .max(99)
-        .pop();
-    config.push_member < &DatUnit_Stats::magic>()
-        .as_slider()
-        .min(0)
-        .max(99)
-        .pop();
-    config.push_member < &DatUnit_Stats::endurance>()
-        .as_slider()
-        .min(0)
-        .max(99)
-        .pop();
-    config.push_member < &DatUnit_Stats::agility>()
-        .as_slider()
-        .min(0)
-        .max(99)
-        .pop();
-    config.push_member < &DatUnit_Stats::luck>()
-        .as_slider()
-        .min(0)
-        .max(99)
-        .pop();
+    SetImReflectConfig();
 
     while (!quit)
     {
-        while (SDL_PollEvent(&e) == true)
-        {
-            ImGui_ImplSDL3_ProcessEvent(&e);
-
-            switch (e.type)
-            {
-            case SDL_EVENT_QUIT:
-                quit = true;
-                break;
-            case SDL_EVENT_WINDOW_FOCUS_LOST:
-                break;
-            case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                break;
-            case SDL_EVENT_MOUSE_MOTION:
-                break;
-            case SDL_EVENT_WINDOW_MOVED:
-                GetMainMonitorResolution(w, h);
-                w /= 4;
-                h /= 2;
-                break;
-            }
-        }
-
-        SDL_RenderClear(renderer);
-
-        ImGui_ImplSDL3_NewFrame();
-        ImGui_ImplSDLRenderer3_NewFrame();
-        ImGui::NewFrame();
-        RenderStructWidgets();
-        ImGui::Render();
-        ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
-
-        SDL_RenderPresent(renderer);
+        Sleep(500);
     }
 
+    printf("Mod exited\n");
     io.Fonts->RemoveFont(windowFont);
 
-    ImGui_ImplSDL3_Shutdown();
-    ImGui_ImplSDLRenderer3_Shutdown();
     ImGui::DestroyContext();
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
     return 0;
 }
 

@@ -1,31 +1,4 @@
 #include "guistructs.h"
-
-//--------------------------------------------------
-// Texture
-//--------------------------------------------------
-bool Texture::LoadTexture(const char* path)
-{
-	Destroy();
-
-	bool loaded = false;
-
-	if (SDL_Surface* texSurface = IMG_Load(path); texSurface != nullptr)
-	{
-
-		if (texture = SDL_CreateTextureFromSurface(renderer, texSurface); texture != nullptr)
-			loaded = true;
-
-		SDL_DestroySurface(texSurface);
-	}
-
-	return loaded;
-}
-
-void Texture::Destroy()
-{
-	SDL_DestroyTexture(texture);
-}
-
 //--------------------------------------------------
 // Global Functions
 //--------------------------------------------------

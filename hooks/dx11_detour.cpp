@@ -1,8 +1,4 @@
-#include <d3d11.h>
-#include "displaystructwindow.h"
-
-#include "backends/imgui_impl_dx11.h"
-#include "backends/imgui_impl_win32.h"
+#include "dx11_detour.h"
 
 extern HMODULE dll_handle;
 
@@ -57,6 +53,8 @@ ID3D11DeviceContext* p_context = NULL;
 ID3D11RenderTargetView* mainRenderTargetView = NULL;
 
 WNDPROC oWndProc;
+ImFont* windowFont;
+bool quit = false;
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
@@ -64,16 +62,29 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
 	switch (uMsg)
 	{
+	case WM_QUIT:
+		quit = true;
+		break;
 	case WM_KILLFOCUS:
-		if (context != nullptr) ImGui::DestroyContext();
-
-		p_device = nullptr;
-		p_context = nullptr;
+	case WM_SIZE:
+	case WM_SIZING:
+		if (context != nullptr)
+		{
+			ImGui_ImplDX11_Shutdown();
+			ImGui_ImplWin32_Shutdown();
+			ImGui::DestroyContext();
+		}
 
 		if (mainRenderTargetView != nullptr) mainRenderTargetView->Release();
 		mainRenderTargetView = nullptr;
 		fetchContext = false;
+		init = false;
 		return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
+
+	case WM_KEYDOWN:
+		if (wParam == VK_F1 && !(lParam & (1 << 30)))
+			ToggleRender();
+		break;
 	}
 
 	if (init && context != nullptr)
@@ -85,10 +96,20 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 }
 
-static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags) {
+int GetWindowHeight(HWND window)
+{
+	RECT rect;
 
-	if (p_swap_chain == nullptr)
-		return p_present(p_swap_chain, sync_interval, flags);
+	if (GetWindowRect(window, &rect))
+	{
+		printf("Window Size: %i\n", rect.bottom - rect.top);
+		return rect.bottom - rect.top;
+	}
+
+	return 0;
+}
+
+static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_interval, UINT flags) {
 
 	if (!fetchContext)
 		return p_present(p_swap_chain, sync_interval, flags);
@@ -96,11 +117,9 @@ static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_int
 	if (!init) {
 		if (SUCCEEDED(p_swap_chain->GetDevice(__uuidof(ID3D11Device), (void**)&p_device)))
 		{
-			if (p_device == nullptr) return p_present(p_swap_chain, sync_interval, flags);
-
 			p_device->GetImmediateContext(&p_context);
 
-			if (p_context == nullptr) return p_present(p_swap_chain, sync_interval, flags);
+			if (p_context == nullptr) p_present(p_swap_chain, sync_interval, flags);
 
 			DXGI_SWAP_CHAIN_DESC sd;
 			p_swap_chain->GetDesc(&sd);
@@ -114,8 +133,6 @@ static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_int
 			p_device->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
 			pBackBuffer->Release();
 
-			if (mainRenderTargetView == nullptr) return p_present(p_swap_chain, sync_interval, flags);
-
 			if (oWndProc == nullptr) oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
 			ImGui::CreateContext();
 
@@ -123,29 +140,51 @@ static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_int
 
 			ImGuiIO& io = ImGui::GetIO();
 			io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+			int h = GetWindowHeight(window);
+			windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.025f);
 			ImGui_ImplWin32_Init(window);
 			ImGui_ImplDX11_Init(p_device, p_context);
 			init = true;
+
+			printf("Hooked everything!\n");
 		}
 		else
 			return p_present(p_swap_chain, sync_interval, flags);
 	}
 
-	if (p_context != nullptr)
-	{
-		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplWin32_NewFrame();
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
 
-		ImGui::NewFrame();
+	ImGui::NewFrame();
 
-		RenderStructWidgets();
+	RenderStructWidgets();
 
-		ImGui::EndFrame();
-		ImGui::Render();
+	ImGui::EndFrame();
+	ImGui::Render();
 
-		p_context->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	}
+	p_context->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	return p_present(p_swap_chain, sync_interval, flags);
+}
+
+bool DX11Hook()
+{
+	if (!get_present_pointer())
+		return false;
+
+	p_present = p_present_target;
+
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	DetourAttach(&(PVOID&)p_present, detour_present);
+	DetourTransactionCommit();
+
+	return true;
+}
+
+void ToggleRender()
+{
+	printf("Toggled renderer!\n");
+	fetchContext = !fetchContext;
 }

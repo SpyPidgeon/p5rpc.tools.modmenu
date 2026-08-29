@@ -150,6 +150,82 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, Inventory& value, ImSet
 extern ImSettings config;
 using std::format;
 
+void SetImReflectConfig()
+{
+	config = ImSettings();
+	config.push_member<&ActiveSkill::validTargetFlags>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::effectChance>()
+		.as_slider()
+		.min(0)
+		.max(100)
+		.pop();
+	config.push_member<&ActiveSkill::critChance>()
+		.as_slider()
+		.min(0)
+		.max(100)
+		.pop();
+	config.push_member<&ActiveSkill::accuracy>()
+		.as_slider()
+		.min(0)
+		.max(100)
+		.pop();
+	config.push_member<&ActiveSkill::commonAilments1>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::specialAilments>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::commonAilments2>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::buffsAndDebuffs>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::commonBuffs>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::shields>()
+		.as_flags()
+		.pop();
+	config.push_member<&ActiveSkill::breakSkills>()
+		.as_flags()
+		.pop();
+
+	config.push_member<&SkillElement::inheritable>()
+		.as_slider()
+		.min(0)
+		.max(8)
+		.pop();
+
+	config.push_member < &DatUnit_Stats::strength>()
+		.as_slider()
+		.min(0)
+		.max(99)
+		.pop();
+	config.push_member < &DatUnit_Stats::magic>()
+		.as_slider()
+		.min(0)
+		.max(99)
+		.pop();
+	config.push_member < &DatUnit_Stats::endurance>()
+		.as_slider()
+		.min(0)
+		.max(99)
+		.pop();
+	config.push_member < &DatUnit_Stats::agility>()
+		.as_slider()
+		.min(0)
+		.max(99)
+		.pop();
+	config.push_member < &DatUnit_Stats::luck>()
+		.as_slider()
+		.min(0)
+		.max(99)
+		.pop();
+}
+
 void RenderSkillTBL()
 {
 	if (ImGui::BeginTabBar("SKILL.TBL (WIP)"))
@@ -199,7 +275,6 @@ void RenderCheats()
 
 }
 
-bool alwaysOnTop = true;
 void RenderStructWidgets()
 {
 	const ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -209,19 +284,6 @@ void RenderStructWidgets()
 
 	if (ImGui::Begin("##Menu",nullptr,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar))
 	{
-		if (ImGui::Button("Always On Top?"))
-		{
-			alwaysOnTop = alwaysOnTop ? false : true;
-			SDL_SetWindowAlwaysOnTop(window, alwaysOnTop);
-		}
-
-		ImGui::SameLine();
-		ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-		ImGui::Checkbox("##ontop", &alwaysOnTop);
-		ImGui::PopItemFlag();
-
-		ImGui::SameLine();
-
 		if (ImGui::Button("Refresh"))
 		{
 			ActiveSkillArray = *ActiveSkillsPTR;

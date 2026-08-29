@@ -4,3 +4,4 @@
 #include "battlestructs.h"
 
 void RenderStructWidgets();
+void SetImReflectConfig();

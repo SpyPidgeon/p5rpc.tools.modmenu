@@ -30,12 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdl3.h">
-      <Filter>ImGui\Backends</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdlrenderer3.h">
-      <Filter>ImGui\Backends</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imconfig.h">
       <Filter>ImGui</Filter>
     </ClInclude>
@@ -81,16 +75,19 @@
     <ClInclude Include="gui\ImReflect.hpp">
       <Filter>Source Files\gui</Filter>
     </ClInclude>
+    <ClInclude Include="hooks\dx11_detour.h">
+      <Filter>Source Files\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_dx11.h">
+      <Filter>ImGui\Backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_win32.h">
+      <Filter>ImGui\Backends</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdl3.cpp">
-      <Filter>ImGui\Backends</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_sdlrenderer3.cpp">
-      <Filter>ImGui\Backends</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui.cpp">
       <Filter>ImGui</Filter>
@@ -121,6 +118,15 @@
     </ClCompile>
     <ClCompile Include="gui\displaystructwindow.cpp">
       <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\dx11_detour.cpp">
+      <Filter>Source Files\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>ImGui\Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>ImGui\Backends</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
