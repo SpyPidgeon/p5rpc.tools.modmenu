@@ -1,12 +1,6 @@
 #include "gamehooks.h"
 
-std::array<ActiveSkill, ACTIVE_SKILL_SIZE> ActiveSkillArray;
-std::array<ActiveSkill, ACTIVE_SKILL_SIZE>* ActiveSkillsPTR;
-
-std::array<std::string, SKILL_ELEMENT_SIZE> SkillNames;
 std::array<std::string, PERSONA_LIST_SIZE> personaNames;
-
-std::array<SkillElement, SKILL_ELEMENT_SIZE> SkillElementArray;
 
 std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
 
@@ -89,4 +83,14 @@ void ApplyAllInventoryValues(Inventory& inv)
 		{
 			value.ApplyValues();
 		});
+}
+
+MouseState oMouseState;
+extern bool fetchContext;
+void MouseStateHook()
+{
+	if (fetchContext)
+		return;
+
+	oMouseState();
 }

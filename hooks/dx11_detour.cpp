@@ -1,4 +1,5 @@
 #include "dx11_detour.h"
+#include "imguistyling.h"
 
 extern HMODULE dll_handle;
 
@@ -136,17 +137,18 @@ static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_int
 			if (oWndProc == nullptr) oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
 			ImGui::CreateContext();
 
+			SetImGuiStyle();
+
 			if (ImGui::GetCurrentContext() == nullptr) return p_present(p_swap_chain, sync_interval, flags);
 
 			ImGuiIO& io = ImGui::GetIO();
 			io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+			io.MouseDrawCursor = true;
 			int h = GetWindowHeight(window);
-			windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.025f);
+			windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.015f);
 			ImGui_ImplWin32_Init(window);
 			ImGui_ImplDX11_Init(p_device, p_context);
 			init = true;
-
-			printf("Hooked everything!\n");
 		}
 		else
 			return p_present(p_swap_chain, sync_interval, flags);
@@ -185,6 +187,5 @@ bool DX11Hook()
 
 void ToggleRender()
 {
-	printf("Toggled renderer!\n");
 	fetchContext = !fetchContext;
 }

@@ -84,6 +84,12 @@
     <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_win32.h">
       <Filter>ImGui\Backends</Filter>
     </ClInclude>
+    <ClInclude Include="gui\imguistyling.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\panels.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -127,6 +133,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_win32.cpp">
       <Filter>ImGui\Backends</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\imguistyling.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\panels.cpp">
+      <Filter>Source Files\gui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

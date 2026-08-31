@@ -37,6 +37,7 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, GFDFileInfo& value, ImS
 void tag_invoke(ImReflect::ImInput_t, const char* label, DatUnit_Skills& value, ImSettings& settings, ImResponse& response)
 {
 	auto& skill_response = response.get<DatUnit_Skills>();
+	SkillPanel* skillPanel = SkillPanel::GetInstance();
 
 	bool changed = false;
 	if (ImGui::CollapsingHeader("Skills"))
@@ -48,18 +49,18 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, DatUnit_Skills& value, 
 
 			if (value.skill[i] == 0)
 				valueName = format("{} Empty", i);
-			else if (value.skill[i] < SkillNames.size())
-				valueName = format("ID: {} | {}", value.skill[i], SkillNames[value.skill[i]]);
+			else if (value.skill[i] < skillPanel->skillNames.size())
+				valueName = format("ID: {} | {}", value.skill[i], skillPanel->skillNames[value.skill[i]]);
 			else
 				valueName = format("{} Default", i);
 
 			if (ImGui::BeginCombo(name.c_str(), valueName.c_str()))
 			{
-				for (int j = 0; j < SkillNames.size(); j++)
+				for (int j = 0; j < skillPanel->skillNames.size(); j++)
 				{
 					bool is_selected = (j == value.skill[i]);
 
-					valueName = format("ID: {} | {}", j, SkillNames[j]);
+					valueName = format("ID: {} | {}", j, skillPanel->skillNames[j]);
 
 					if (ImGui::Selectable(valueName.c_str(), is_selected))
 					{
@@ -150,242 +151,33 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, Inventory& value, ImSet
 extern ImSettings config;
 using std::format;
 
-void SetImReflectConfig()
-{
-	config = ImSettings();
-	config.push_member<&ActiveSkill::validTargetFlags>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::effectChance>()
-		.as_slider()
-		.min(0)
-		.max(100)
-		.pop();
-	config.push_member<&ActiveSkill::critChance>()
-		.as_slider()
-		.min(0)
-		.max(100)
-		.pop();
-	config.push_member<&ActiveSkill::accuracy>()
-		.as_slider()
-		.min(0)
-		.max(100)
-		.pop();
-	config.push_member<&ActiveSkill::commonAilments1>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::specialAilments>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::commonAilments2>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::buffsAndDebuffs>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::commonBuffs>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::shields>()
-		.as_flags()
-		.pop();
-	config.push_member<&ActiveSkill::breakSkills>()
-		.as_flags()
-		.pop();
-
-	config.push_member<&SkillElement::inheritable>()
-		.as_slider()
-		.min(0)
-		.max(8)
-		.pop();
-
-	config.push_member < &DatUnit_Stats::strength>()
-		.as_slider()
-		.min(0)
-		.max(99)
-		.pop();
-	config.push_member < &DatUnit_Stats::magic>()
-		.as_slider()
-		.min(0)
-		.max(99)
-		.pop();
-	config.push_member < &DatUnit_Stats::endurance>()
-		.as_slider()
-		.min(0)
-		.max(99)
-		.pop();
-	config.push_member < &DatUnit_Stats::agility>()
-		.as_slider()
-		.min(0)
-		.max(99)
-		.pop();
-	config.push_member < &DatUnit_Stats::luck>()
-		.as_slider()
-		.min(0)
-		.max(99)
-		.pop();
-}
-
-void RenderSkillTBL()
-{
-	if (ImGui::BeginTabBar("SKILL.TBL (WIP)"))
-	{
-		if (ImGui::BeginTabItem("Skill Elements"))
-		{
-			for (int i = 0; i < SKILL_ELEMENT_SIZE; i++)
-			{
-				std::ostringstream oss;
-				oss << std::setw(3) << std::setfill('0') << i;
-
-				std::string name = "ID: " + oss.str() + " | " + SkillNames[i];
-
-				if (ImGui::CollapsingHeader(name.c_str()))
-				{
-					ImReflect::Input(name.c_str(), SkillElementArray[i], config);
-				}
-			}
-			ImGui::EndTabItem();
-		}
-		if (ImGui::BeginTabItem("Active Skills"))
-		{
-			if (ImGui::Button("Apply Changes"))
-			{
-				*ActiveSkillsPTR = ActiveSkillArray;
-			}
-
-			for (int i = 0; i < ACTIVE_SKILL_SIZE; i++)
-			{
-				std::ostringstream oss;
-				oss << std::setw(3) << std::setfill('0') << i;
-
-				std::string name = "ID: " + oss.str() + " | " + SkillNames[i];
-				if (ImGui::CollapsingHeader(name.c_str()))
-				{
-					ImReflect::Input(name.c_str(), ActiveSkillArray[i], config);
-				}
-			}
-			ImGui::EndTabItem();
-		}
-		ImGui::EndTabBar();
-	}
-}
-
-void RenderCheats()
-{
-
-}
+const char* windowName = "SpyPigeon's Mod Menu";
 
 void RenderStructWidgets()
 {
 	const ImGuiViewport* viewport = ImGui::GetMainViewport();
 
 	ImGui::SetNextWindowPos(viewport->Pos);
-	ImGui::SetNextWindowSize(viewport->Size);
+	ImGui::SetNextWindowSize(ImVec2(viewport->Size.x,viewport->Size.y * 0.05f));
 
-	if (ImGui::Begin("##Menu",nullptr,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar))
+	if (ImGui::Begin(windowName, nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize))
 	{
-		if (ImGui::Button("Refresh"))
+		for (auto panel : panels)
 		{
-			ActiveSkillArray = *ActiveSkillsPTR;
-
-			for (int i = 0; i < 10; i++)
+			if (ImGui::Button(panel->label.c_str()))
 			{
-				partyMembers[i].first = *partyMemberPTRs[i];
-			}
+				panel->p_open = true;
 
-			RefreshFullInventory(playerInventory);
-		}
-
-		if (ImGui::BeginTabBar("Tabs"))
-		{
-			if (ImGui::BeginTabItem("Tables(WIP)"))
-			{
-				RenderSkillTBL();
-
-				ImGui::EndTabItem();
-			}
-
-			if (ImGui::BeginTabItem("Items"))
-			{
-				if (ImGui::Button("Apply Inventory Changes"))
+				for (auto others : panels)
 				{
-					ApplyAllInventoryValues(playerInventory);
-				}
-				ImReflect::Input("PlayerInventory", playerInventory);
-				ImGui::EndTabItem();
-			}
-
-			if (ImGui::BeginTabItem("Party"))
-			{
-				if (ImGui::Button("Apply All Changes"))
-				{
-					for (int i = 0; i < 10; i++)
+					if (others != panel)
 					{
-						*partyMemberPTRs[i] = partyMembers[i].first;
+						others->p_open = false;
 					}
 				}
-
-				for (int i = 0; i < 10; i++)
-				{
-					std::string name = partyMembers[i].second;
-					std::string namePersonas = partyMembers[i].second + " Personas";
-					if (ImGui::CollapsingHeader(name.c_str()))
-					{
-						ImReflect::Input(std::to_string(i).c_str(), partyMembers[i].first, config);
-
-						if (ImGui::CollapsingHeader(namePersonas.c_str()))
-						{
-							for (int j = 0; j < 12; j++)
-							{
-								auto& persona = partyMembers[i].first.StockPersonas[j];
-								std::string personaLabel;
-								if (persona.personaID == 0)
-									personaLabel = "Empty Persona Slot " + std::to_string(j);
-								else
-									personaLabel = personaNames[persona.personaID] + " | Slot: " + std::to_string(j);
-
-								if (ImGui::CollapsingHeader(personaLabel.c_str()))
-								{
-									ImReflect::Input(personaLabel.c_str(), persona, config);
-
-									std::string changes = "Apply Changes To " + std::to_string(j);
-									if (ImGui::Button(changes.c_str()))
-									{
-										partyMemberPTRs[i]->StockPersonas[j] = persona;
-									}
-								}
-							}
-						}
-					}
-				}
-
-				ImGui::EndTabItem();
 			}
 
-			if (ImGui::BeginTabItem("Loaded Files"))
-			{
-				for (int i = 0; i < FILE_ARRAY_SIZE; i++)
-				{
-					if (gfdFiles->at(i).fileAddress == NULL)
-						continue;
-
-					std::string filePath = format("Index: {} | {}",i,gfdFiles->at(i).path.data());
-					if (ImGui::CollapsingHeader(filePath.c_str()))
-					{
-						ImReflect::Input(std::to_string(i).c_str(),gfdFiles->at(i));
-					}
-				}
-
-				ImGui::EndTabItem();
-			}
-
-			if (ImGui::BeginTabItem("Cheats"))
-			{
-				RenderCheats();
-				ImGui::EndTabItem();
-			}
-
-			ImGui::EndTabBar();
+			panel->RenderPanel();
 		}
 
 		ImGui::End();
