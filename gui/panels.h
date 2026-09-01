@@ -8,6 +8,10 @@ constexpr uint8_t PARTY_MAX = 10;
 constexpr uint16_t PERSONA_LIST_SIZE = 464;
 constexpr uint16_t FILE_ARRAY_SIZE = 512;
 
+constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
+
+std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress);
+
 struct Panel
 {
     Panel();
@@ -15,11 +19,14 @@ struct Panel
 
     std::string label;
     const char* childLabel = "Inspector";
-    bool p_open = false;
+    bool open = false;
     void RenderPanel();
 
-    virtual void RenderLogic() = 0;
-    virtual void InspectorLogic() = 0;
+    virtual void RenderLogic() {}
+    virtual void InspectorLogic() {}
+    virtual void ScanValues() {}
+    virtual void ApplyChanges() {}
+    virtual void Refresh() {}
 };
 
 extern std::vector<Panel*> panels;
@@ -35,6 +42,12 @@ struct SearchablePanel : Panel
 
     template<typename T,std::size_t S,std::size_t NS>
     void RenderList(std::array<T, S>* array,std::array<std::string,NS>* names);
+};
+
+enum class SkillTab
+{
+    ACTIVE,
+    ELEMENT
 };
 
 struct SkillPanel : SearchablePanel
@@ -55,7 +68,16 @@ struct SkillPanel : SearchablePanel
 
     std::array<std::string, SKILL_ELEMENT_SIZE> skillNames;
     std::array<SkillElement, SKILL_ELEMENT_SIZE> skillElementArray;
+    std::array<SkillElement, SKILL_ELEMENT_SIZE>* skillElementPtr;
+
+    SkillTab tab = SkillTab::ACTIVE;
 
     void RenderLogic() override;
     void InspectorLogic() override;
+    void ScanValues() override;
+    void ApplyChanges() override;
+    void Refresh() override;
+
+private:
 };
+static SkillPanel* skillPanel = SkillPanel::GetInstance();

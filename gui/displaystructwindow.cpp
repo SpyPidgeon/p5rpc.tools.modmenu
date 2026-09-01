@@ -37,7 +37,6 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, GFDFileInfo& value, ImS
 void tag_invoke(ImReflect::ImInput_t, const char* label, DatUnit_Skills& value, ImSettings& settings, ImResponse& response)
 {
 	auto& skill_response = response.get<DatUnit_Skills>();
-	SkillPanel* skillPanel = SkillPanel::GetInstance();
 
 	bool changed = false;
 	if (ImGui::CollapsingHeader("Skills"))
@@ -166,18 +165,19 @@ void RenderStructWidgets()
 		{
 			if (ImGui::Button(panel->label.c_str()))
 			{
-				panel->p_open = true;
+				panel->open = !panel->open;
 
 				for (auto others : panels)
 				{
 					if (others != panel)
 					{
-						others->p_open = false;
+						others->open = false;
 					}
 				}
 			}
 
-			panel->RenderPanel();
+			if (panel->open)
+				panel->RenderPanel();
 		}
 
 		ImGui::End();

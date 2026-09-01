@@ -4360,7 +4360,7 @@ namespace ImReflect {
 
 				bool changeRow = false;
 
-				if (i > row * 5)
+				if ((i + 1) % 3 == 0)
 				{
 					row++;
 					changeRow = true;

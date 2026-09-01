@@ -6,8 +6,6 @@
 #include "filestructs.h"
 #include "panels.h"
 
-std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress);
-
 extern std::array<std::string, PERSONA_LIST_SIZE> personaNames;
 
 extern std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
@@ -29,7 +27,6 @@ struct InventoryType
 	std::array<std::string, N> names;
 	DWORD_PTR address = NULL;
 	DWORD_PTR namesAddress = NULL;
-	//std::string names; TODO: Implement
 
 	void SetData(DWORD_PTR address)
 	{

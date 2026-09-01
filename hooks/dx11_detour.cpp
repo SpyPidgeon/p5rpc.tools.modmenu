@@ -88,10 +88,10 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 		break;
 	}
 
-	if (init && context != nullptr)
+	if (fetchContext && context != nullptr)
 	{
-		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-		return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
+		if (SUCCEEDED(ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)))
+			return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 	}
 
 	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
@@ -145,7 +145,7 @@ static long __stdcall detour_present(IDXGISwapChain* p_swap_chain, UINT sync_int
 			io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
 			io.MouseDrawCursor = true;
 			int h = GetWindowHeight(window);
-			windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.015f);
+			windowFont = io.Fonts->AddFontFromFileTTF(GetDLLPath("font\\arial.ttf").c_str(), h * 0.013f);
 			ImGui_ImplWin32_Init(window);
 			ImGui_ImplDX11_Init(p_device, p_context);
 			init = true;

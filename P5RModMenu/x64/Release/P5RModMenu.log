@@ -1,4 +1,117 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(524,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  dllmain.cpp
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(142,2): warning C4369: 'CommonAilments2':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(154,2): warning C4369: 'SpecialAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(166,2): warning C4369: 'BuffsAndDebuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(178,2): warning C4369: 'CommonBuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 'BreakSkills':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4309: 'initializing': truncation of constant value
+  (compiling source file 'dllmain.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4369: 'BuffStatus':  enumerator value '-2147483648' cannot be represented as 'unsigned int', value is '-2147483648'
+  (compiling source file 'dllmain.cpp')
+  
+  battlestructs.cpp
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4309: 'initializing': truncation of constant value
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4369: 'BuffStatus':  enumerator value '-2147483648' cannot be represented as 'unsigned int', value is '-2147483648'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(142,2): warning C4369: 'CommonAilments2':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(154,2): warning C4369: 'SpecialAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(166,2): warning C4369: 'BuffsAndDebuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(178,2): warning C4369: 'CommonBuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 'BreakSkills':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'game_structs/battlestructs.cpp')
+  
+  guistructs.cpp
+  displaystructwindow.cpp
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(142,2): warning C4369: 'CommonAilments2':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(154,2): warning C4369: 'SpecialAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(166,2): warning C4369: 'BuffsAndDebuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(178,2): warning C4369: 'CommonBuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 'BreakSkills':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4309: 'initializing': truncation of constant value
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4369: 'BuffStatus':  enumerator value '-2147483648' cannot be represented as 'unsigned int', value is '-2147483648'
+  (compiling source file 'gui/displaystructwindow.cpp')
+  
+  imguistyling.cpp
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(142,2): warning C4369: 'CommonAilments2':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(154,2): warning C4369: 'SpecialAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(166,2): warning C4369: 'BuffsAndDebuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(178,2): warning C4369: 'CommonBuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 'BreakSkills':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4309: 'initializing': truncation of constant value
+  (compiling source file 'gui/imguistyling.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4369: 'BuffStatus':  enumerator value '-2147483648' cannot be represented as 'unsigned int', value is '-2147483648'
+  (compiling source file 'gui/imguistyling.cpp')
+  
   panels.cpp
 E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
   (compiling source file 'gui/panels.cpp')
@@ -21,74 +134,76 @@ E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 
 E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
   (compiling source file 'gui/panels.cpp')
   
-E:\Projects\repos\P5RModMenu\gui\panels.cpp(18,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Projects\repos\P5RModMenu\gui\panels.cpp(29,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Projects\repos\P5RModMenu\gui\panels.cpp(31,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(4363,11): warning C4018: '>': signed/unsigned mismatch
-  (compiling source file 'gui/panels.cpp')
-      E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(4363,11):
-      the template instantiation context (the oldest one first) is
-          E:\Projects\repos\P5RModMenu\gui\panels.cpp(88,13):
-          see reference to function template instantiation 'ImReflect::ImResponse ImReflect::Input<_Ty>(const char *,T &)' being compiled
-          with
-          [
-              _Ty=ActiveSkill,
-              T=ActiveSkill
-          ]
-          E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(3310,11):
-          see reference to function template instantiation 'void ImReflect::Detail::InputImpl<T>(const char *,T &,ImReflect::ImSettings &,ImReflect::ImResponse &)' being compiled
-          with
-          [
-              T=ActiveSkill
-          ]
-          E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(3282,5):
-          see reference to function template instantiation 'void ImReflect::Detail::imgui_input_visit_field<T>(const char *,T &,ImReflect::ImSettings &,ImReflect::ImResponse &)' being compiled
-          with
-          [
-              T=ActiveSkill
-          ]
-          E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(3239,38):
-          see reference to function template instantiation 'void visit_struct::context<ImReflect::Detail::ImContext>::for_each<ImReflect::Detail::imgui_input_visit_field::<lambda_1>,T&>(S,V &&)' being compiled
-          with
-          [
-              T=ActiveSkill,
-              S=ActiveSkill &,
-              V=ImReflect::Detail::imgui_input_visit_field::<lambda_1>
-          ]
-          E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(2662,52):
-          see reference to function template instantiation 'void visit_struct::traits::visitable<ActiveSkill,ImReflect::Detail::ImContext>::apply<_Ty,T&>(V &&,S)' being compiled
-          with
-          [
-              _Ty=ImReflect::Detail::imgui_input_visit_field::<lambda_1>,
-              T=ActiveSkill,
-              V=ImReflect::Detail::imgui_input_visit_field::<lambda_1>,
-              S=ActiveSkill &
-          ]
-          E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(300,1):
-          see reference to function template instantiation 'void ImReflect::Detail::imgui_input_visit_field::<lambda_1>::operator ()<CasterEffect2>(const char *,_T1 &) const' being compiled
-          with
-          [
-              _T1=CasterEffect2
-          ]
-          E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(3247,6):
-          see reference to function template instantiation 'void ImReflect::Detail::InputImpl<_T1>(const char *,T &,ImReflect::ImSettings &,ImReflect::ImResponse &)' being compiled
-          with
-          [
-              _T1=CasterEffect2,
-              T=CasterEffect2
-          ]
-          E:\Projects\repos\P5RModMenu\gui\ImReflect.hpp(3286,5):
-          see reference to function template instantiation 'void ImReflect::tag_invoke<_T1>(ImReflect::Detail::ImInputLib_t,const char *,E &,ImReflect::ImSettings &,ImReflect::ImResponse &)' being compiled
-          with
-          [
-              _T1=CasterEffect2,
-              E=CasterEffect2
-          ]
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(20,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(21,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(22,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(23,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(26,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(26,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(44,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(46,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(47,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Projects\repos\P5RModMenu\gui\panels.cpp(47,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  dx11_detour.cpp
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(142,2): warning C4369: 'CommonAilments2':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(154,2): warning C4369: 'SpecialAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(166,2): warning C4369: 'BuffsAndDebuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(178,2): warning C4369: 'CommonBuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 'BreakSkills':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4309: 'initializing': truncation of constant value
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4369: 'BuffStatus':  enumerator value '-2147483648' cannot be represented as 'unsigned int', value is '-2147483648'
+  (compiling source file 'hooks/dx11_detour.cpp')
+  
+  gamehooks.cpp
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(130,2): warning C4369: 'CommonAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(142,2): warning C4369: 'CommonAilments2':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(154,2): warning C4369: 'SpecialAilments':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(166,2): warning C4369: 'BuffsAndDebuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(178,2): warning C4369: 'CommonBuffs':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(190,2): warning C4369: 'BreakSkills':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\skillstructs.h(202,2): warning C4369: 'Shield':  enumerator value '128' cannot be represented as 'signed char', value is '128'
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4309: 'initializing': truncation of constant value
+  (compiling source file 'hooks/gamehooks.cpp')
+  
+E:\Projects\repos\P5RModMenu\game_structs\battlestructs.h(37,2): warning C4369: 'BuffStatus':  enumerator value '-2147483648' cannot be represented as 'unsigned int', value is '-2147483648'
+  (compiling source file 'hooks/gamehooks.cpp')
   
      Creating library C:\Users\judso\Desktop\Reloaded-II\Mods\p5rpc.tools.spymenu\P5RModMenu.lib and object C:\Users\judso\Desktop\Reloaded-II\Mods\p5rpc.tools.spymenu\P5RModMenu.exp
   Generating code
-  9 of 8148 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  75 of 8663 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    49 functions had inline decision re-evaluated but remain unchanged
+    52 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   P5RModMenu.vcxproj -> C:\Users\judso\Desktop\Reloaded-II\Mods\p5rpc.tools.spymenu\P5RModMenu.dll
