@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include "guistructs.h"
 #include "displaystructwindow.h"
 #include "skillstructs.h"
@@ -6,15 +7,11 @@
 #include "filestructs.h"
 #include "panels.h"
 
-extern std::array<std::string, PERSONA_LIST_SIZE> personaNames;
-
+constexpr uint16_t FILE_ARRAY_SIZE = 512;
 extern std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
 
 typedef DatUnit* (__stdcall* GetDatUnitByID)(uint16_t ID);
 extern GetDatUnitByID GetDatUnit;
-
-extern std::array<std::pair<DatUnit,std::string>, PARTY_MAX> partyMembers;
-extern std::array<DatUnit*,PARTY_MAX> partyMemberPTRs;
 
 typedef void(__stdcall* MouseState)();
 extern MouseState oMouseState;

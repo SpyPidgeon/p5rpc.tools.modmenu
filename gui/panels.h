@@ -1,16 +1,16 @@
 #pragma once
-#include "ImReflect.hpp"
 #include <vector>
 #include <functional>
+#include "filestructs.h"
+#include "battlestructs.h"
 #include "skillstructs.h"
 
-constexpr uint8_t PARTY_MAX = 10;
-constexpr uint16_t PERSONA_LIST_SIZE = 464;
-constexpr uint16_t FILE_ARRAY_SIZE = 512;
+std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress);
+
+typedef DatUnit* (__stdcall* GetDatUnitByID)(uint16_t ID);
+extern GetDatUnitByID GetDatUnit;
 
 constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
-
-std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress);
 
 struct Panel
 {
@@ -20,6 +20,7 @@ struct Panel
     std::string label;
     const char* childLabel = "Inspector";
     bool open = false;
+    int selectedIndex = 0;
     void RenderPanel();
 
     virtual void RenderLogic() {}
@@ -36,8 +37,7 @@ struct SearchablePanel : Panel
     SearchablePanel() {}
 
     char searchText[256] = "";
-    int selectedIndex = 0;
-    bool TextMatch(std::string search, std::string match);
+    static bool TextMatch(std::string search, std::string match);
     void RenderLogic() override;
 
     template<typename T,std::size_t S,std::size_t NS>
@@ -50,8 +50,9 @@ enum class SkillTab
     ELEMENT
 };
 
-struct SkillPanel : SearchablePanel
+class SkillPanel : SearchablePanel
 {
+public:
     SkillPanel() { this->label = "Skills"; }
 
     static SkillPanel* GetInstance()
@@ -59,6 +60,12 @@ struct SkillPanel : SearchablePanel
         static SkillPanel* instance = new SkillPanel();
         return instance;
     }
+
+    void RenderLogic() override;
+    void InspectorLogic() override;
+    void ScanValues() override;
+    void ApplyChanges() override;
+    void Refresh() override;
 
     static constexpr uint16_t ACTIVE_SKILL_SIZE = 800;
     static constexpr uint16_t SKILL_ELEMENT_SIZE = 1056;
@@ -70,7 +77,22 @@ struct SkillPanel : SearchablePanel
     std::array<SkillElement, SKILL_ELEMENT_SIZE> skillElementArray;
     std::array<SkillElement, SKILL_ELEMENT_SIZE>* skillElementPtr;
 
+private:
     SkillTab tab = SkillTab::ACTIVE;
+};
+static SkillPanel* skillPanel = SkillPanel::GetInstance();
+
+enum class PartyTab
+{
+    Members,
+    Personas
+};
+
+class PartyPanel : Panel
+{
+public:
+    PartyPanel() { this->label = "Party"; }
+    static PartyPanel* GetInstance() { static PartyPanel* instance = new PartyPanel(); return instance; }
 
     void RenderLogic() override;
     void InspectorLogic() override;
@@ -78,6 +100,16 @@ struct SkillPanel : SearchablePanel
     void ApplyChanges() override;
     void Refresh() override;
 
+    static constexpr uint8_t PARTY_MAX = 10;
+    static constexpr uint16_t PERSONA_LIST_SIZE = 464;
+
+    std::array<std::pair<DatUnit, std::string>, PARTY_MAX> partyMembers;
+    std::array<DatUnit*, PARTY_MAX> partyMemberPTRs;
+    std::array<std::string, PERSONA_LIST_SIZE> personaNames;
+
+    int selectedPersona = 0;
+
 private:
+    PartyTab tab = PartyTab::Members;
 };
-static SkillPanel* skillPanel = SkillPanel::GetInstance();
+static PartyPanel* partyPanel = PartyPanel::GetInstance();

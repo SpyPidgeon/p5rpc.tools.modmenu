@@ -1,12 +1,8 @@
 #include "gamehooks.h"
 
-std::array<std::string, PERSONA_LIST_SIZE> personaNames;
-
 std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
 
 GetDatUnitByID GetDatUnit;
-std::array<std::pair<DatUnit, std::string>, PARTY_MAX> partyMembers;
-std::array<DatUnit*, PARTY_MAX> partyMemberPTRs;
 
 Inventory playerInventory;
 

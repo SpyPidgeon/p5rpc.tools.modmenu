@@ -1,5 +1,9 @@
 #pragma once
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #include "gamehooks.h"
+#include "displaystructwindow.h"
 
 #include <d3d11.h>
 #pragma comment(lib, "d3d11.lib")

@@ -12,7 +12,6 @@
 // ============================================================================
 
 #pragma once
-
 // Required ImGui includes (you must have ImGui in your project)
 #include <imgui.h>
 #include <imgui_internal.h>

@@ -33,99 +33,6 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, GFDFileInfo& value, ImS
 	ImReflect::Detail::check_input_states(file_response);
 }
 
-// Skills
-void tag_invoke(ImReflect::ImInput_t, const char* label, DatUnit_Skills& value, ImSettings& settings, ImResponse& response)
-{
-	auto& skill_response = response.get<DatUnit_Skills>();
-
-	bool changed = false;
-	if (ImGui::CollapsingHeader("Skills"))
-	{
-		for (int i = 0; i < 8; i++)
-		{
-			std::string name = "Skill" + std::to_string(i);
-			std::string valueName;
-
-			if (value.skill[i] == 0)
-				valueName = format("{} Empty", i);
-			else if (value.skill[i] < skillPanel->skillNames.size())
-				valueName = format("ID: {} | {}", value.skill[i], skillPanel->skillNames[value.skill[i]]);
-			else
-				valueName = format("{} Default", i);
-
-			if (ImGui::BeginCombo(name.c_str(), valueName.c_str()))
-			{
-				for (int j = 0; j < skillPanel->skillNames.size(); j++)
-				{
-					bool is_selected = (j == value.skill[i]);
-
-					valueName = format("ID: {} | {}", j, skillPanel->skillNames[j]);
-
-					if (ImGui::Selectable(valueName.c_str(), is_selected))
-					{
-						value.skill[i] = j;
-						changed = true;
-					}
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-
-				ImGui::EndCombo();
-			}
-		}
-	}
-
-	if (changed)
-		skill_response.changed();
-
-	ImReflect::Detail::check_input_states(skill_response);
-}
-
-// Persona ID
-void tag_invoke(ImReflect::ImInput_t, const char* label, PersonaID& value, ImSettings& settings, ImResponse& response)
-{
-	auto& persona_response = response.get<PersonaID>();
-
-	bool changed = false;
-
-	std::string valueName;
-
-	if (value.id == 0)
-		valueName = "Empty Slot";
-	else if (value.id < personaNames.size())
-		valueName = "ID: " + std::to_string(value.id) + " | " + personaNames[value.id];
-	else
-		valueName = "Error";
-
-	if (ImGui::BeginCombo(label, valueName.c_str()))
-	{
-		for (int j = 0; j < personaNames.size(); j++)
-		{
-			bool is_selected = (j == value.id);
-
-			if (j == 0)
-				valueName = "Empty Slot";
-			else
-				valueName = "ID: " + std::to_string(j) + " | " + personaNames[j];
-
-			if (ImGui::Selectable(valueName.c_str(), is_selected))
-			{
-				value.id = j;
-				changed = true;
-			}
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
-		}
-
-		ImGui::EndCombo();
-	}
-
-	if (changed)
-		persona_response.changed();
-
-	ImReflect::Detail::check_input_states(persona_response);
-}
-
 // Inventory
 void tag_invoke(ImReflect::ImInput_t, const char* label, Inventory& value, ImSettings& settings, ImResponse& response)
 {
@@ -163,6 +70,7 @@ void RenderStructWidgets()
 	{
 		for (auto panel : panels)
 		{
+			ImGui::SameLine();
 			if (ImGui::Button(panel->label.c_str()))
 			{
 				panel->open = !panel->open;
