@@ -90,6 +90,15 @@
     <ClInclude Include="gui\panels.h">
       <Filter>Source Files\gui</Filter>
     </ClInclude>
+    <ClInclude Include="gui\partypanel.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\skillpanel.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\inventorypanel.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -138,6 +147,15 @@
       <Filter>Source Files\gui</Filter>
     </ClCompile>
     <ClCompile Include="gui\panels.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\partypanel.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\skillpanel.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\inventorypanel.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
   </ItemGroup>

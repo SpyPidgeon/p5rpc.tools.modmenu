@@ -33,26 +33,6 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, GFDFileInfo& value, ImS
 	ImReflect::Detail::check_input_states(file_response);
 }
 
-// Inventory
-void tag_invoke(ImReflect::ImInput_t, const char* label, Inventory& value, ImSettings& settings, ImResponse& response)
-{
-	auto& item_response = response.get<Inventory>();
-
-	bool changed = false;
-	if (ImGui::CollapsingHeader(label))
-	{
-		visit_struct::for_each(value,[&changed](const char* name, auto& member)
-		{
-				member.RenderSliders(name, changed);
-		});
-	}
-
-	if (changed)
-		item_response.changed();
-
-	ImReflect::Detail::check_input_states(item_response);
-}
-
 // Rendering Code
 extern ImSettings config;
 using std::format;

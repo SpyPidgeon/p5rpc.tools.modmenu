@@ -161,7 +161,10 @@
     <ClInclude Include="gui\displaystructwindow.h" />
     <ClInclude Include="gui\imguistyling.h" />
     <ClInclude Include="gui\ImReflect.hpp" />
+    <ClInclude Include="gui\inventorypanel.h" />
     <ClInclude Include="gui\panels.h" />
+    <ClInclude Include="gui\partypanel.h" />
+    <ClInclude Include="gui\skillpanel.h" />
     <ClInclude Include="hooks\dx11_detour.h" />
     <ClInclude Include="hooks\gamehooks.h" />
     <ClInclude Include="hooks\signaturescan.h" />
@@ -179,7 +182,10 @@
     <ClCompile Include="game_structs\guistructs.cpp" />
     <ClCompile Include="gui\displaystructwindow.cpp" />
     <ClCompile Include="gui\imguistyling.cpp" />
+    <ClCompile Include="gui\inventorypanel.cpp" />
     <ClCompile Include="gui\panels.cpp" />
+    <ClCompile Include="gui\partypanel.cpp" />
+    <ClCompile Include="gui\skillpanel.cpp" />
     <ClCompile Include="hooks\dx11_detour.cpp" />
     <ClCompile Include="hooks\gamehooks.cpp" />
     <ClCompile Include="hooks\signaturescan.cpp" />

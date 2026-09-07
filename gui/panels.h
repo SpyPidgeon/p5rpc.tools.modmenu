@@ -10,6 +10,8 @@ std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameA
 typedef DatUnit* (__stdcall* GetDatUnitByID)(uint16_t ID);
 extern GetDatUnitByID GetDatUnit;
 
+extern ImSettings config;
+
 constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
 
 struct Panel
@@ -40,76 +42,21 @@ struct SearchablePanel : Panel
     static bool TextMatch(std::string search, std::string match);
     void RenderLogic() override;
 
-    template<typename T,std::size_t S,std::size_t NS>
-    void RenderList(std::array<T, S>* array,std::array<std::string,NS>* names);
-};
-
-enum class SkillTab
-{
-    ACTIVE,
-    ELEMENT
-};
-
-class SkillPanel : SearchablePanel
-{
-public:
-    SkillPanel() { this->label = "Skills"; }
-
-    static SkillPanel* GetInstance()
+    template<typename T, std::size_t S, std::size_t NS>
+    void RenderList(std::array<T, S>* array, std::array<std::string, NS>* names)
     {
-        static SkillPanel* instance = new SkillPanel();
-        return instance;
+        std::string search = searchText;
+        for (int i = 0; i < S; i++)
+        {
+            if (search != "" && !TextMatch(search, names->at(i)))
+                continue;
+
+            std::string buttonName = format("ID: {:03d} | {}", i, names->at(i));
+
+            if (ImGui::Button(buttonName.c_str()))
+            {
+                selectedIndex = i;
+            }
+        }
     }
-
-    void RenderLogic() override;
-    void InspectorLogic() override;
-    void ScanValues() override;
-    void ApplyChanges() override;
-    void Refresh() override;
-
-    static constexpr uint16_t ACTIVE_SKILL_SIZE = 800;
-    static constexpr uint16_t SKILL_ELEMENT_SIZE = 1056;
-
-    std::array<ActiveSkill, ACTIVE_SKILL_SIZE> activeSkillArray;
-    std::array<ActiveSkill, ACTIVE_SKILL_SIZE>* activeSkillsPTR;
-
-    std::array<std::string, SKILL_ELEMENT_SIZE> skillNames;
-    std::array<SkillElement, SKILL_ELEMENT_SIZE> skillElementArray;
-    std::array<SkillElement, SKILL_ELEMENT_SIZE>* skillElementPtr;
-
-private:
-    SkillTab tab = SkillTab::ACTIVE;
 };
-static SkillPanel* skillPanel = SkillPanel::GetInstance();
-
-enum class PartyTab
-{
-    Members,
-    Personas
-};
-
-class PartyPanel : Panel
-{
-public:
-    PartyPanel() { this->label = "Party"; }
-    static PartyPanel* GetInstance() { static PartyPanel* instance = new PartyPanel(); return instance; }
-
-    void RenderLogic() override;
-    void InspectorLogic() override;
-    void ScanValues() override;
-    void ApplyChanges() override;
-    void Refresh() override;
-
-    static constexpr uint8_t PARTY_MAX = 10;
-    static constexpr uint16_t PERSONA_LIST_SIZE = 464;
-
-    std::array<std::pair<DatUnit, std::string>, PARTY_MAX> partyMembers;
-    std::array<DatUnit*, PARTY_MAX> partyMemberPTRs;
-    std::array<std::string, PERSONA_LIST_SIZE> personaNames;
-
-    int selectedPersona = 0;
-
-private:
-    PartyTab tab = PartyTab::Members;
-};
-static PartyPanel* partyPanel = PartyPanel::GetInstance();
