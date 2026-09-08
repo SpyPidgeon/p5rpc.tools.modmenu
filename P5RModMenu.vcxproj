@@ -76,8 +76,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>E:\ProgrammingDependencies\SDL3_image-3.2.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\ProgrammingDependencies\SDL3_image-3.2.4\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -119,13 +119,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\ProgrammingDependencies\SDL3-3.2.8\include;%(AdditionalIncludeDirectories);E:\Projects\Detours\include;E:\Projects\repos\P5RModMenu\game_structs;E:\Projects\repos\P5RModMenu\hooks;E:\Projects\repos\P5RModMenu\gui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories></AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>E:\ProgrammingDependencies\SDL3-3.2.8\lib\x64\SDL3.lib;%(AdditionalDependencies);E:\Projects\Detours\lib.X64\detours.lib</AdditionalDependencies>
+      <AdditionalDependencies></AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
