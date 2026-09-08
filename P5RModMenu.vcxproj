@@ -71,7 +71,6 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>C:\Users\judso\Desktop\Reloaded-II\Mods\p5rpc.tools.spymenu</OutDir>
     <IncludePath>E:\ProgrammingDependencies\SDL3_image-3.2.4\include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\ProgrammingDependencies\SDL3_image-3.2.4\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -134,14 +133,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\Projects\repos\P5RModMenu\imgui\backends;E:\Projects\repos\P5RModMenu\imgui;%(AdditionalIncludeDirectories);E:\Projects\Detours\include;E:\Projects\repos\P5RModMenu\game_structs;E:\Projects\repos\P5RModMenu\hooks;E:\Projects\repos\P5RModMenu\gui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\imgui\backends;$(SolutionDir)\imgui;%(AdditionalIncludeDirectories);$(SolutionDir)\Detours\include;$(SolutionDir)\game_structs;$(SolutionDir)\hooks;$(SolutionDir)\gui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>%(AdditionalDependencies);E:\Projects\Detours\lib.X64\detours.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(SolutionDir)\Detours\lib.X64\detours.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
