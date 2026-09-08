@@ -134,7 +134,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\ProgrammingDependencies\imgui\misc\cpp;E:\ProgrammingDependencies\imgui;%(AdditionalIncludeDirectories);E:\Projects\Detours\include;E:\Projects\repos\P5RModMenu\game_structs;E:\Projects\repos\P5RModMenu\hooks;E:\Projects\repos\P5RModMenu\gui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\repos\P5RModMenu\imgui\backends;E:\Projects\repos\P5RModMenu\imgui;%(AdditionalIncludeDirectories);E:\Projects\Detours\include;E:\Projects\repos\P5RModMenu\game_structs;E:\Projects\repos\P5RModMenu\hooks;E:\Projects\repos\P5RModMenu\gui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
@@ -145,15 +145,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_dx11.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imconfig.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imgui.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imgui_internal.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\imstb_truetype.h" />
-    <ClInclude Include="..\..\..\ProgrammingDependencies\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="game_structs\battlestructs.h" />
     <ClInclude Include="game_structs\filestructs.h" />
     <ClInclude Include="game_structs\guistructs.h" />
@@ -168,15 +159,17 @@
     <ClInclude Include="hooks\dx11_detour.h" />
     <ClInclude Include="hooks\gamehooks.h" />
     <ClInclude Include="hooks\signaturescan.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imgui_stdlib.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_dx11.cpp" />
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui.cpp" />
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\..\..\ProgrammingDependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="game_structs\battlestructs.cpp" />
     <ClCompile Include="game_structs\guistructs.cpp" />
@@ -189,6 +182,14 @@
     <ClCompile Include="hooks\dx11_detour.cpp" />
     <ClCompile Include="hooks\gamehooks.cpp" />
     <ClCompile Include="hooks\signaturescan.cpp" />
+    <ClCompile Include="imgui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
