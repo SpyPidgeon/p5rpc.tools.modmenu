@@ -1,7 +1,5 @@
 #include "gamehooks.h"
 
-std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
-
 GetDatUnitByID GetDatUnit;
 
 std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress)

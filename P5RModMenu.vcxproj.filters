@@ -99,6 +99,9 @@
     <ClInclude Include="imgui\imgui_stdlib.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="gui\filepanel.h">
+      <Filter>Source Files\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -161,5 +164,11 @@
     <ClCompile Include="imgui\imgui_stdlib.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="gui\filepanel.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="font\arial.ttf" />
   </ItemGroup>
 </Project>

@@ -24,12 +24,6 @@ void InitScan()
         panel->ScanValues();
     }
 
-    pattern = "48 8D 15 ?? ?? ?? ?? 8B 8C ?? ?? ?? ?? ?? 41 89 0F";
-    DWORD_PTR fileArrayStart = PatternScan(GetModuleHandle(NULL), pattern);
-    fileArrayStart = GetAddressFromGlobalRef(fileArrayStart);
-
-    gfdFiles = (std::array<GFDFileInfo, FILE_ARRAY_SIZE>*)fileArrayStart;
-
     pattern = "48 8B C4 48 81 EC 98 00 00 00 80 3D ? ? ? ? 00";
     oMouseState = (MouseState)PatternScan(GetModuleHandle(NULL), pattern);
 

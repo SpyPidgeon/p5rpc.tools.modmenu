@@ -7,9 +7,6 @@
 #include "filestructs.h"
 #include "panels.h"
 
-constexpr uint16_t FILE_ARRAY_SIZE = 512;
-extern std::array<GFDFileInfo, FILE_ARRAY_SIZE>* gfdFiles;
-
 typedef DatUnit* (__stdcall* GetDatUnitByID)(uint16_t ID);
 extern GetDatUnitByID GetDatUnit;
 

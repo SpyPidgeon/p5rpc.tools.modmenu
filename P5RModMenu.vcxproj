@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-  <None Include="font\arial.ttf">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
-</ItemGroup>
+    <None Include="font\arial.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -119,13 +119,15 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories></AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies></AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +156,7 @@
     <ClInclude Include="game_structs\guistructs.h" />
     <ClInclude Include="game_structs\skillstructs.h" />
     <ClInclude Include="gui\displaystructwindow.h" />
+    <ClInclude Include="gui\filepanel.h" />
     <ClInclude Include="gui\imguistyling.h" />
     <ClInclude Include="gui\ImReflect.hpp" />
     <ClInclude Include="gui\inventorypanel.h" />
@@ -178,6 +181,7 @@
     <ClCompile Include="game_structs\battlestructs.cpp" />
     <ClCompile Include="game_structs\guistructs.cpp" />
     <ClCompile Include="gui\displaystructwindow.cpp" />
+    <ClCompile Include="gui\filepanel.cpp" />
     <ClCompile Include="gui\imguistyling.cpp" />
     <ClCompile Include="gui\inventorypanel.cpp" />
     <ClCompile Include="gui\panels.cpp" />
