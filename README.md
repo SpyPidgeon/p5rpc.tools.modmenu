@@ -1,1 +1,1 @@
-This branch is temporary and exists to update the menu to use a DirectX 11 hook and a rewrite to the UI system.
+WIP Persona 5 Royal Mod Menu
