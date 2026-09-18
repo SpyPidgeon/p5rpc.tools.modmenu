@@ -12,7 +12,7 @@ struct FlowFileFunction
 	char label[0x2C];
 	int maxParams = 8;
 	std::array<BYTE,42> data1;
-	std::array<float, 16> parameters;
+	std::array<int, 16> parameters;
 	std::array<BYTE, 0x224> data2;
 
 	static FlowFileFunction* GetInstance()
