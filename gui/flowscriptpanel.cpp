@@ -9,6 +9,11 @@ void FlowScriptPanel::ScanValues()
 	DWORD_PTR flowStart = PatternScan(GetModuleHandle(NULL), pattern);
 	flowStart = GetAddressFromGlobalRef(flowStart);
 
+	pattern = "4C 8B 05 ?? ?? ?? ?? 41 8B 50 ?? 29 CA";
+	DWORD_PTR flowFuncPtr = PatternScan(GetModuleHandle(NULL), pattern);
+	flowFuncPtr = GetAddressFromGlobalRef(flowFuncPtr);
+	flowFunction = (FlowFileFunction**)flowFuncPtr;
+
 	flowCategories = (std::array<FlowCategory,6>*)flowStart;
 }
 
@@ -50,6 +55,8 @@ void FlowScriptPanel::RenderLogic()
 				if (ImGui::Button(label.c_str()))
 				{
 					selectedIndex = j;
+					currentParams.clear();
+					currentParams.resize(flowVector[j].paramCount);
 				}
 				ImGui::PopID();
 			}
@@ -68,11 +75,29 @@ void FlowScriptPanel::InspectorLogic()
 	
 	ImGui::LabelText("##label", label.c_str());
 	ImGui::Separator();
-	for (int i = 0; i < flowObject.paramCount; i++)
+	for (int i = 0; i < currentParams.size(); i++)
 	{
 		std::string label = std::format("Param{}", i);
-
-		float input = 0.0f;
-		ImGui::InputFloat(label.c_str(), &input,0,0,"%g");
+		ImGui::InputFloat(label.c_str(), &currentParams[i], 0, 0, "%g");
 	}
+
+	if (ImGui::Button("Run"))
+	{
+		RunFunction();
+	}
+}
+
+void FlowScriptPanel::RunFunction()
+{
+	auto& flowObject = flowVector[selectedIndex];
+
+	for (int i = 0; i < currentParams.size(); i++)
+	{
+		int j = 15 - (i * 2);
+		modMenuFlowScript->parameters.at(j) = currentParams[i];
+	}
+
+	*flowFunction = modMenuFlowScript;
+	flowObject.Function();
+	*flowFunction = nullptr;
 }
