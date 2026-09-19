@@ -142,6 +142,8 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\imgui\backends;$(SolutionDir)\imgui;%(AdditionalIncludeDirectories);$(SolutionDir)\Detours\include;$(SolutionDir)\game_structs;$(SolutionDir)\hooks;$(SolutionDir)\gui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

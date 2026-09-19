@@ -12,7 +12,7 @@ struct FlowFileFunction
 	char label[0x2C];
 	int maxParams = 8;
 	std::array<BYTE,42> data1;
-	std::array<int, 16> parameters;
+	std::array<float,16> parameters;
 	std::array<BYTE, 0x224> data2;
 
 	static FlowFileFunction* GetInstance()
@@ -20,6 +20,11 @@ struct FlowFileFunction
 		static FlowFileFunction* instance = new FlowFileFunction();
 		const char* label = "MOD_MENU_FLOWSCRIPT";
 		strcpy_s(instance->label, 20, label);
+
+		for (int i = 0; i < instance->parameters.size(); i++)
+		{
+			instance->parameters.at(i) = 0;
+		}
 
 		return instance;
 	}
@@ -60,6 +65,8 @@ public:
 	std::vector<FlowScript> flowVector;
 	std::vector<float> currentParams;
 	FlowFileFunction** flowFunction;
+
+	bool runByModMenu = false;
 
 	int previouslySelected = -1;
 };

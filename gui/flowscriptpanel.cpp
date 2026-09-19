@@ -98,6 +98,8 @@ void FlowScriptPanel::RunFunction()
 	}
 
 	*flowFunction = modMenuFlowScript;
+	runByModMenu = true;
 	flowObject.Function();
+	runByModMenu = false;
 	*flowFunction = nullptr;
 }
