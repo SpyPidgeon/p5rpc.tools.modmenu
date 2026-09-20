@@ -1,5 +1,6 @@
 #include "dx11_detour.h"
 #include "imguistyling.h"
+#include "quickpanel.h"
 
 extern HMODULE dll_handle;
 
@@ -83,8 +84,28 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 		return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 
 	case WM_KEYDOWN:
-		if (wParam == VK_F1 && !(lParam & (1 << 30)))
+		if ((lParam & (1 << 30)))
+		{
+			break;
+		}
+
+		if (wParam == VK_F1)
 			ToggleRender();
+
+		if (quickPanel->noclip.enabled)
+		{
+			quickPanel->noclip.NoclipKeyStateOn(wParam);
+		}
+
+		break;
+
+	case WM_KEYUP:
+
+		if (quickPanel->noclip.enabled)
+		{
+			quickPanel->noclip.NoclipKeyStateOff(wParam);
+		}
+
 		break;
 	}
 

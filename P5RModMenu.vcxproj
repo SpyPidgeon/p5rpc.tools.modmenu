@@ -165,6 +165,7 @@
     <ClInclude Include="gui\inventorypanel.h" />
     <ClInclude Include="gui\panels.h" />
     <ClInclude Include="gui\partypanel.h" />
+    <ClInclude Include="gui\quickpanel.h" />
     <ClInclude Include="gui\skillpanel.h" />
     <ClInclude Include="hooks\dx11_detour.h" />
     <ClInclude Include="hooks\gamehooks.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="vectormath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -190,6 +192,7 @@
     <ClCompile Include="gui\inventorypanel.cpp" />
     <ClCompile Include="gui\panels.cpp" />
     <ClCompile Include="gui\partypanel.cpp" />
+    <ClCompile Include="gui\quickpanel.cpp" />
     <ClCompile Include="gui\skillpanel.cpp" />
     <ClCompile Include="hooks\dx11_detour.cpp" />
     <ClCompile Include="hooks\gamehooks.cpp" />

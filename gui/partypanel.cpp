@@ -110,7 +110,7 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, DatUnit_Skills& value, 
 
 				for (int j = 0; j < skillPanel->skillNames.size(); j++)
 				{
-					bool skip = !skillSearch[0] && !SearchablePanel::TextMatch(skillSearch, skillPanel->skillNames[j]);
+					bool skip = !SearchablePanel::TextMatch(skillSearch, skillPanel->skillNames[j]);
 
 					if (skip)
 						continue;

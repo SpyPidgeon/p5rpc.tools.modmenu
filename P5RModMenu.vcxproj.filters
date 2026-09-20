@@ -28,6 +28,9 @@
     <Filter Include="Source Files\gui">
       <UniqueIdentifier>{4d1d9334-1103-4a4a-ab1b-cf7c2214dcea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\panels">
+      <UniqueIdentifier>{f528d61a-fa58-41f9-8974-005fa6d9359a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hooks\gamehooks.h">
@@ -60,18 +63,6 @@
     <ClInclude Include="gui\imguistyling.h">
       <Filter>Source Files\gui</Filter>
     </ClInclude>
-    <ClInclude Include="gui\panels.h">
-      <Filter>Source Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\partypanel.h">
-      <Filter>Source Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\skillpanel.h">
-      <Filter>Source Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\inventorypanel.h">
-      <Filter>Source Files\gui</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>ImGui</Filter>
     </ClInclude>
@@ -99,11 +90,29 @@
     <ClInclude Include="imgui\imgui_stdlib.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="gui\filepanel.h">
-      <Filter>Source Files\gui</Filter>
+    <ClInclude Include="gui\skillpanel.h">
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\inventorypanel.h">
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\panels.h">
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\partypanel.h">
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\quickpanel.h">
+      <Filter>Source Files\panels</Filter>
     </ClInclude>
     <ClInclude Include="gui\flowscriptpanel.h">
-      <Filter>Source Files\gui</Filter>
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\filepanel.h">
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="vectormath.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,18 +140,6 @@
     <ClCompile Include="gui\imguistyling.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="gui\panels.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\partypanel.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\skillpanel.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="gui\inventorypanel.cpp">
-      <Filter>Source Files\gui</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
@@ -167,11 +164,26 @@
     <ClCompile Include="imgui\imgui_stdlib.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="gui\inventorypanel.cpp">
+      <Filter>Source Files\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\panels.cpp">
+      <Filter>Source Files\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\partypanel.cpp">
+      <Filter>Source Files\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\quickpanel.cpp">
+      <Filter>Source Files\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\skillpanel.cpp">
+      <Filter>Source Files\panels</Filter>
+    </ClCompile>
     <ClCompile Include="gui\filepanel.cpp">
-      <Filter>Source Files\gui</Filter>
+      <Filter>Source Files\panels</Filter>
     </ClCompile>
     <ClCompile Include="gui\flowscriptpanel.cpp">
-      <Filter>Source Files\gui</Filter>
+      <Filter>Source Files\panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

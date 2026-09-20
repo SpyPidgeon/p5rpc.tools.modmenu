@@ -89,17 +89,61 @@ void FlowScriptPanel::InspectorLogic()
 
 void FlowScriptPanel::RunFunction()
 {
-	auto& flowObject = flowVector[selectedIndex];
+	auto* flowObject = &flowVector[selectedIndex];
+	RunFlowScript(flowObject, currentParams);
+}
 
-	for (int i = 0; i < currentParams.size(); i++)
+FlowScript* FlowScriptPanel::GetFunctionByName(const char* name)
+{
+	for (int i = 0; i < flowCategories->size(); i++)
+	{
+		auto* category = &flowCategories->at(i);
+		for (int j = 0; j < category->size; j++)
+		{
+			FlowScript* function = (FlowScript*)((intptr_t)category->categoryStart + j * sizeof(FlowScript));
+			if (std::string_view(function->name) == name)
+			{
+				return function;
+			}
+		}
+	}
+
+	printf("GetFunctionByName returned nullptr!\n");
+	return nullptr;
+}
+
+void FlowScriptPanel::RunFlowScriptFunctionByName(const char* name, std::vector<float> args)
+{
+	FlowScript* flowObject = GetFunctionByName(name);
+
+	if (flowObject == nullptr)
+		return;
+
+	RunFlowScript(flowObject, args);
+}
+
+void FlowScriptPanel::RunFlowScript(FlowScript* flowObject, std::vector<float> args)
+{
+	if (flowObject == nullptr)
+		return;
+
+	if (args.size() > 8)
+	{
+		printf("RunFlowScript: Too many arguments!");
+		return;
+	}
+
+	modMenuFlowScript->parameters.fill(0);
+
+	for (int i = 0; i < args.size(); i++)
 	{
 		int j = 15 - (i * 2);
-		modMenuFlowScript->parameters.at(j) = currentParams[i];
+		modMenuFlowScript->parameters.at(j) = args[i];
 	}
 
 	*flowFunction = modMenuFlowScript;
 	runByModMenu = true;
-	flowObject.Function();
+	flowObject->Function();
 	runByModMenu = false;
 	*flowFunction = nullptr;
 }
