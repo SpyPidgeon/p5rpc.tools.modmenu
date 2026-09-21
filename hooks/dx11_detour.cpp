@@ -14,7 +14,7 @@ bool get_present_pointer()
 	sd.BufferCount = 2;
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.OutputWindow = FindWindowA(NULL, "Persona 5 Royal");
+	sd.OutputWindow = GetForegroundWindow();
 	sd.SampleDesc.Count = 1;
 	sd.Windowed = TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
@@ -23,7 +23,7 @@ bool get_present_pointer()
 	ID3D11Device* device;
 
 	const D3D_FEATURE_LEVEL feature_levels[] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_0, };
-	if (D3D11CreateDeviceAndSwapChain(
+	HRESULT result = D3D11CreateDeviceAndSwapChain(
 		NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
@@ -35,7 +35,8 @@ bool get_present_pointer()
 		&swap_chain,
 		&device,
 		nullptr,
-		nullptr) == S_OK)
+		nullptr);
+	if (result == S_OK)
 	{
 		void** p_vtable = *reinterpret_cast<void***>(swap_chain);
 		swap_chain->Release();
@@ -43,6 +44,10 @@ bool get_present_pointer()
 		//context->Release();
 		p_present_target = (present)p_vtable[8];
 		return true;
+	}
+	else
+	{
+		printf("Failed with reason: 0x%x\n", result);
 	}
 	return false;
 }

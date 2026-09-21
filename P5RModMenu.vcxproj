@@ -134,16 +134,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;P5RMODMENU_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\imgui\backends;$(SolutionDir)\imgui;%(AdditionalIncludeDirectories);$(SolutionDir)\Detours\include;$(SolutionDir)\game_structs;$(SolutionDir)\hooks;$(SolutionDir)\gui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\imgui\backends;$(SolutionDir)\imgui;%(AdditionalIncludeDirectories);$(SolutionDir)\Detours\include;$(SolutionDir)\game_structs;$(SolutionDir)\hooks;$(SolutionDir)\gui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
-      <Optimization>MaxSpeed</Optimization>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

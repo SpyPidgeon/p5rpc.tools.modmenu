@@ -2,7 +2,6 @@
 #include "flowscriptpanel.h"
 
 GetDatUnitByID GetDatUnit;
-FlowScriptIntCheck oFlowScriptIntThunk;
 
 std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress)
 {
@@ -37,24 +36,4 @@ void MouseStateHook()
 		return;
 
 	oMouseState();
-}
-
-// No inline to avoid stack corruption.
-__declspec(noinline) void FlowScriptFloatToInt(int parameter)
-{
-	if (!flowPanel->runByModMenu)
-		return;
-
-	int arrayParam = 15 - (parameter * 2);
-
-	// Bithack go brrrr
-	float* data = &modMenuFlowScript->parameters.at(arrayParam);
-	int newData = (int)*data;
-	std::memcpy(data, &newData, sizeof(float));
-}
-
-int __fastcall FlowScriptIntDetour(int parameter)
-{
-	FlowScriptFloatToInt(parameter);
-	return oFlowScriptIntThunk(parameter);
 }

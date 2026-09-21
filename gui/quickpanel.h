@@ -1,6 +1,7 @@
 #pragma once
 #include "panels.h"
 #include "flowscriptpanel.h"
+#include "vectormath.h"
 
 struct NoclipSettings
 {
@@ -25,7 +26,8 @@ enum KeyPressed : BYTE
 
 enum QuickSelection
 {
-	NOCLIP
+	NOCLIP,
+	TELEPORT
 };
 
 class QuickPanel : Panel
@@ -42,5 +44,9 @@ public:
 
 	NoclipSettings noclip;
 	BYTE keyState;
+	Vector3 teleport;
+
+	void SavePosition();
+	void Teleport(const Vector3& position);
 };
 static QuickPanel* quickPanel = QuickPanel::GetInstance();

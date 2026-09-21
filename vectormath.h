@@ -1,4 +1,5 @@
 #pragma once
+#include "ImReflect.hpp"
 
 struct Vector3
 {
@@ -7,3 +8,4 @@ struct Vector3
 	~Vector3() {}
 	float x, y, z;
 };
+IMGUI_REFLECT(Vector3, x, y, z);

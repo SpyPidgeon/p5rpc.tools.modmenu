@@ -112,7 +112,7 @@
       <Filter>Source Files\panels</Filter>
     </ClInclude>
     <ClInclude Include="vectormath.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

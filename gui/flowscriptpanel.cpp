@@ -85,6 +85,10 @@ void FlowScriptPanel::InspectorLogic()
 	{
 		RunFunction();
 	}
+
+	ImGui::LabelText("##retval","Last Returned Value");
+	ImGui::LabelText("As Float", std::to_string(GET_RETURN_FLOAT()).c_str());
+	ImGui::LabelText("As Integer", std::to_string(GET_RETURN_INT()).c_str());
 }
 
 void FlowScriptPanel::RunFunction()

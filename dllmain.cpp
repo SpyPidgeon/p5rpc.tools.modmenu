@@ -27,14 +27,9 @@ void InitScan()
     pattern = "48 8B C4 48 81 EC 98 00 00 00 80 3D ? ? ? ? 00";
     oMouseState = (MouseState)PatternScan(GetModuleHandle(NULL), pattern);
 
-    pattern = "E8 ?? ?? ?? ?? 41 0F B7 89 ?? ?? ?? ?? 41 C7 41 ?? 01 00 00 00";
-    DWORD_PTR flowParamIntThunk = PatternScan(GetModuleHandle(NULL), pattern);
-    oFlowScriptIntThunk = (FlowScriptIntCheck)GetAddressFromFuncCall(flowParamIntThunk);
-
     DetourTransactionBegin();
     DetourUpdateThread(GetCurrentThread());
     DetourAttach(&(PVOID&)oMouseState, MouseStateHook);
-    DetourAttach(&(PVOID&)oFlowScriptIntThunk, FlowScriptIntDetour);
     DetourTransactionCommit();
 }
 

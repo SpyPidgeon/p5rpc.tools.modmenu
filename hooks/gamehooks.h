@@ -13,8 +13,3 @@ extern GetDatUnitByID GetDatUnit;
 typedef void(__stdcall* MouseState)();
 extern MouseState oMouseState;
 void MouseStateHook();
-
-typedef int(*FlowScriptIntCheck)(int parameter);
-extern FlowScriptIntCheck oFlowScriptIntThunk;
-
-int __fastcall FlowScriptIntDetour(int parameter);

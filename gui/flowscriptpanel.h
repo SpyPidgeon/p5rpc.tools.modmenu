@@ -11,7 +11,8 @@ struct FlowFileFunction
 {
 	char label[0x2C];
 	int maxParams = 8;
-	std::array<BYTE,42> data1;
+	std::array<BYTE, 8> rules;
+	std::array<BYTE,34> data1;
 	std::array<float,16> parameters;
 	std::array<BYTE, 0x13B> data2;
 	float returnValue = 0;
@@ -26,6 +27,11 @@ struct FlowFileFunction
 		for (int i = 0; i < instance->parameters.size(); i++)
 		{
 			instance->parameters.at(i) = 0;
+		}
+
+		for (int i = 0; i < instance->rules.size(); i++)
+		{
+			instance->rules.at(i) = 0x1;
 		}
 
 		return instance;
@@ -85,7 +91,7 @@ public:
 };
 static FlowScriptPanel *flowPanel = FlowScriptPanel::GetInstance();
 
-#define RUN_FLOWSCRIPT_BY_NAME(name, ...) flowPanel->RunFlowScriptFunction(#name, std::vector<float>{__VA_ARGS__})
+#define RUN_FLOWSCRIPT_BY_NAME(name, ...) flowPanel->RunFlowScriptFunctionByName(#name, std::vector<float>{__VA_ARGS__})
 #define RUN_FLOWSCRIPT(flowObject, ...) flowPanel->RunFlowScript(flowObject,std::vector<float>{__VA_ARGS__})
 #define GET_FLOWSCRIPT(name) flowPanel->GetFunctionByName(#name)
 #define GET_RETURN_FLOAT() modMenuFlowScript->returnValue
