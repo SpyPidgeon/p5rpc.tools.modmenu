@@ -33,7 +33,7 @@ void RenderStructWidgets()
 			if (panel->open)
 				panel->RenderPanel();
 		}
-
-		ImGui::End();
 	}
+
+	ImGui::End();
 }
