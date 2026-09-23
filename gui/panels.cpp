@@ -64,14 +64,11 @@ bool SearchablePanel::TextMatch(std::string search, std::string match)
 	if (search.size() > match.size())
 		return false;
 
-	for (int i = 0; i < search.size(); i++)
+	for (int i = 0; i < match.size(); i++)
 	{
-		char upperS = std::toupper(search[i]);
-		char upperM = std::toupper(match[i]);
-
-		if (upperS != upperM)
-			return false;
+		if (i < search.size()) search[i] = std::tolower(search[i]);
+		match[i] = std::tolower(match[i]);
 	}
 
-	return true;
+	return match.find(search) != std::string::npos;
 }
