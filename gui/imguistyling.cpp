@@ -79,6 +79,19 @@ void SetImReflectConfig()
 		.as_flags()
 		.pop();
 
+	config.push_member<&Technical::applicableAilments>()
+		.as_flags()
+		.pop();
+	
+	config.push_member<&Trait::flags>()
+		.as_flags()
+		.pop();
+	config.push_member<&Trait::effectRate>()
+		.as_slider()
+		.min(0)
+		.max(100)
+		.pop();
+
 	config.push_member<&SkillElement::inheritable>()
 		.as_slider()
 		.min(0)

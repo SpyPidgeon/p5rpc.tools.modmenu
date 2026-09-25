@@ -245,6 +245,14 @@ enum class TargetRestrictions : uint8_t
 	UnconsciousOnly = 64
 };
 
+enum class EffectType : uint8_t
+{
+	None,
+	SingleOrMultiple,
+	Cure,
+	Multiple
+};
+
 #pragma pack(push,1)
 struct ActiveSkill
 {
@@ -275,7 +283,7 @@ struct ActiveSkill
 	SPEffect spEffect;
 	uint8_t unk5;
 	uint16_t spRestoreValue;
-	uint8_t applyOrCure;
+	EffectType effectType;
 	uint8_t effectChance;
 	CommonAilments commonAilments1;
 	uint8_t unk6;
@@ -300,7 +308,7 @@ static_assert(sizeof(ActiveSkill) == 48, "ActiveSkill size must be 48 bytes.");
 IMGUI_REFLECT
 (ActiveSkill, casterEffect2, casterEffect1, conditionUsage, unkr0, areaType, unkr1, damageStatType, costType, cost, skillType, multiplyCost, targetType,
 	validTargetFlags, targetRestrictions, unk0, unk1, unk2, unk3, unk4, accuracy, minHits, maxHits, damageOrHeal, damageValue, spEffect, unk5, spRestoreValue,
-	applyOrCure, effectChance, commonAilments1, unk6, specialAilments, commonAilments2, buffsAndDebuffs, commonBuffs, breakSkills, shields, otherBuffs,
+	effectType, effectChance, commonAilments1, unk6, specialAilments, commonAilments2, buffsAndDebuffs, commonBuffs, breakSkills, shields, otherBuffs,
 	reserve, unkr2, extraEffects, critChance, forItem, unk7);
 
 //-------------------------------------------
@@ -348,10 +356,87 @@ struct SkillElement
 	ElementSkillType skillType;
 	uint8_t inheritable;
 	uint8_t unk0;
-	uint8_t unk1;
-	uint8_t unk2;
-	uint8_t unk3;
 	uint8_t unusedBitfield;
+	std::array<BYTE, 3> unk;
 };
 
-IMGUI_REFLECT(SkillElement, skillElement, skillType, inheritable, unk0, unk1, unk2, unk3, unusedBitfield);
+IMGUI_REFLECT(SkillElement, skillElement, skillType, inheritable, unk0, unusedBitfield,unk);
+
+
+//-------------------------------------------
+// Technicals
+//-------------------------------------------
+
+enum class ApplicableAilments : int
+{
+	Burn = 1 << 0,
+	Freeze = 1 << 1,
+	Shock = 1 << 2,
+	Dizzy = 1 << 3,
+	Confused = 1 << 4,
+	Fear = 1 << 5,
+	Forget = 1 << 6,
+	Hunger = 1 << 7,
+	Sleep = 1 << 8,
+	Rage = 1 << 9,
+	Despair = 1 << 10,
+	Brainwash = 1 << 11
+};
+
+template<>
+struct magic_enum::customize::enum_range<ApplicableAilments>
+{
+	//static constexpr uint32_t min = 0;
+	//static constexpr uint32_t max = 2048;
+	static constexpr bool is_flags = true;
+};
+
+enum class TechnicalAffinity : int32_t
+{
+	Blank = -1,
+	Physical,
+	Gun,
+	Fire,
+	Ice,
+	Electric,
+	Wind,
+	Psy,
+	Nuke,
+	Bless,
+	Curse,
+	Almighty
+};
+
+struct Technical
+{
+	ApplicableAilments applicableAilments;
+	bool allAffinitiesTechnical;
+	std::array<TechnicalAffinity, 5> affinities;
+	float damageMultiplier;
+	uint32_t unk;
+	int requireKnowingHeart;
+};
+IMGUI_REFLECT(Technical, applicableAilments, allAffinitiesTechnical, affinities, damageMultiplier, unk);
+
+//-------------------------------------------
+// Traits
+//-------------------------------------------
+
+enum class TraitFlags : int
+{
+	Unique = 1 << 0,
+	Treasure = 1 << 1,
+	SubTrait = 1 << 2
+};
+
+struct Trait
+{
+	short effect;
+	short field2;
+	int effectRate;
+	int subRate;
+	float effectSize;
+	std::array<int, 10> subTraits;
+	TraitFlags flags;
+};
+IMGUI_REFLECT(Trait, effect, field2, effectRate, subRate, effectSize, subTraits, flags);

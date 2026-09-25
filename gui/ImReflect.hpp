@@ -4285,10 +4285,7 @@ namespace ImReflect {
 				}
 			}
 
-			ImGui::PushTextWrapPos();
-			ImGui::TextUnformatted(std::to_string(int_value).c_str());
-			ImGui::PopTextWrapPos();
-			ImGui::SameLine();
+			preview = std::to_string(int_value) + ' ' + preview;
 //			changed = ImGui::Combo(label, &int_value, item_vec.data(), enum_count);
 
 			if (ImGui::BeginCombo(label,preview.c_str()))

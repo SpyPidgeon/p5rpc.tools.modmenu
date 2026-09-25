@@ -59,4 +59,18 @@ struct SearchablePanel : Panel
             }
         }
     }
+
+    template<typename T, std::size_t S>
+    void RenderListNoName(std::array<T, S>* array, const std::string& name)
+    {
+        for (int i = 0; i < S; i++)
+        {
+            std::string buttonName = format("ID: {:02d} | {}", i, name);
+
+            if (ImGui::Button(buttonName.c_str()))
+            {
+                selectedIndex = i;
+            }
+        }
+    }
 };
