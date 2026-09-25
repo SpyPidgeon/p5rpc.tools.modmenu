@@ -426,7 +426,52 @@ enum class TraitFlags : int
 {
 	Unique = 1 << 0,
 	Treasure = 1 << 1,
-	SubTrait = 1 << 2
+	UseSubTrait = 1 << 2
+};
+
+template<>
+struct magic_enum::customize::enum_range<TraitFlags>
+{
+	static constexpr bool is_flags = true;
+};
+
+enum class TraitElementFlags : int
+{
+	Unknown = 1 << 0,
+	Physical = 1 << 1,
+	Gun = 1 << 2,
+	Fire = 1 << 3,
+	Ice = 1 << 4,
+	Elec = 1 << 5,
+	Wind = 1 << 6,
+	Psy = 1 << 7,
+	Nuke = 1 << 8,
+	Bless = 1 << 9,
+	Curse = 1 << 10,
+	Almighty = 1 << 11,
+	Dizzy = 1 << 12,
+	Confuse = 1 << 13,
+	Fear = 1 << 14,
+	Forget = 1 << 15,
+	Hunger = 1 << 16,
+	Sleep = 1 << 17,
+	Rage = 1 << 18,
+	Despair = 1 << 19,
+	Brainwash = 1 << 20,
+	Healing = 1 << 21,
+	Support = 1 << 22
+};
+
+template<>
+struct magic_enum::customize::enum_range<TraitElementFlags>
+{
+	static constexpr bool is_flags = true;
+};
+
+union SubTraitBytes
+{
+	int elementFlags;
+	int subTraidId;
 };
 
 struct Trait
@@ -434,9 +479,9 @@ struct Trait
 	short effect;
 	short field2;
 	int effectRate;
-	int subRate;
-	float effectSize;
+	SubTraitBytes subTraitBytes;
+	float effectMagnitude;
 	std::array<int, 10> subTraits;
 	TraitFlags flags;
 };
-IMGUI_REFLECT(Trait, effect, field2, effectRate, subRate, effectSize, subTraits, flags);
+IMGUI_REFLECT(Trait, effect, field2, effectRate, effectMagnitude, subTraits, flags);

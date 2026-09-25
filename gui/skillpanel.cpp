@@ -128,8 +128,31 @@ void SkillPanel::InspectorLogic()
 		break;
 	}
 	case SkillTab::TRAIT:
-		ImReflect::Input(traitNamesArray[selectedIndex].c_str(), traitsArray[selectedIndex], config);
+	{
+		auto& selected = traitsArray[selectedIndex];
+		ImReflect::Input(traitNamesArray[selectedIndex].c_str(), selected, config);
+
+		ImGui::Separator();
+
+		constexpr auto elementFlags = magic_enum::enum_values<TraitElementFlags>();
+
+		ImGui::LabelText("##elementLabel", "Element Flags");
+
+		for (int i = 0; i < elementFlags.size(); i++)
+		{
+			if (i % 3 != 0)
+				ImGui::SameLine();
+
+			const char* flagLabel = magic_enum::enum_name(elementFlags[i]).data();
+			ImGui::PushID(i);
+			ImGui::CheckboxFlags(flagLabel,&selected.subTraitBytes.elementFlags,std::to_underlying(elementFlags[i]));
+			ImGui::PopID();
+		}
+		ImGui::LabelText("##warning", "Warning: Flags after Almighty are untested!");
+		ImGui::InputInt("Sub Trait ID", &selected.subTraitBytes.subTraidId);
+
 		break;
+	}
 	}
 }
 
