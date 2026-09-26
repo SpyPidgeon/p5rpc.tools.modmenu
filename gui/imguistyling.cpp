@@ -91,6 +91,9 @@ void SetImReflectConfig()
 		.min(0)
 		.max(100)
 		.pop();
+	config.push_member<&Trait::elementFlags>()
+		.as_flags()
+		.pop();
 
 	config.push_member<&SkillElement::inheritable>()
 		.as_slider()

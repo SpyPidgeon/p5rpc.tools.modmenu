@@ -131,26 +131,8 @@ void SkillPanel::InspectorLogic()
 	{
 		auto& selected = traitsArray[selectedIndex];
 		ImReflect::Input(traitNamesArray[selectedIndex].c_str(), selected, config);
-
-		ImGui::Separator();
-
-		constexpr auto elementFlags = magic_enum::enum_values<TraitElementFlags>();
-
-		ImGui::LabelText("##elementLabel", "Element Flags");
-
-		for (int i = 0; i < elementFlags.size(); i++)
-		{
-			if (i % 3 != 0)
-				ImGui::SameLine();
-
-			const char* flagLabel = magic_enum::enum_name(elementFlags[i]).data();
-			ImGui::PushID(i);
-			ImGui::CheckboxFlags(flagLabel,&selected.subTraitBytes.elementFlags,std::to_underlying(elementFlags[i]));
-			ImGui::PopID();
-		}
-		ImGui::LabelText("##warning", "Warning: Flags after Almighty are untested!");
-		ImGui::InputInt("Sub Trait ID", &selected.subTraitBytes.subTraidId);
-
+		ImGui::LabelText("##warning", "Warning: element flags after Almighty are untested.");
+		ImGui::InputInt("Sub Trait ID", (int*)&selected.elementFlags);
 		break;
 	}
 	}
@@ -161,6 +143,7 @@ void SkillPanel::ApplyChanges()
 	std::memcpy(activeSkillsPTR, activeSkillArray.data(), activeSkillArray.size() * sizeof(ActiveSkill));
 	std::memcpy(skillElementPtr, skillElementArray.data(), skillElementArray.size() * sizeof(SkillElement));
 	std::memcpy(technicalPtr, technicalArray.data(), technicalArray.size() * sizeof(Technical));
+	std::memcpy(traitsPtr, traitsArray.data(), traitsArray.size() * sizeof(Trait));
 }
 
 void SkillPanel::Refresh()
@@ -168,4 +151,5 @@ void SkillPanel::Refresh()
 	activeSkillArray = *activeSkillsPTR;
 	skillElementArray = *skillElementPtr;
 	technicalArray = *technicalPtr;
+	traitsArray = *traitsPtr;
 }

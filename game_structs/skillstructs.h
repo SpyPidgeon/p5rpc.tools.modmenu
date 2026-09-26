@@ -468,20 +468,14 @@ struct magic_enum::customize::enum_range<TraitElementFlags>
 	static constexpr bool is_flags = true;
 };
 
-union SubTraitBytes
-{
-	int elementFlags;
-	int subTraidId;
-};
-
 struct Trait
 {
 	short effect;
 	short field2;
 	int effectRate;
-	SubTraitBytes subTraitBytes;
+	TraitElementFlags elementFlags;
 	float effectMagnitude;
 	std::array<int, 10> subTraits;
 	TraitFlags flags;
 };
-IMGUI_REFLECT(Trait, effect, field2, effectRate, effectMagnitude, subTraits, flags);
+IMGUI_REFLECT(Trait, effect, field2, effectRate, effectMagnitude, subTraits, flags, elementFlags);
