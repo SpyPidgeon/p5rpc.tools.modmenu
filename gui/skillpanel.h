@@ -12,7 +12,7 @@ enum class SkillTab
 class SkillPanel : SearchablePanel
 {
 public:
-    SkillPanel() { this->label = "Skills"; }
+    SkillPanel() { this->label = "Skills"; currentDirectory = GetDLLPath(""); }
 
     static SkillPanel* GetInstance()
     {
@@ -26,6 +26,8 @@ public:
     void ApplyChanges() override;
     void Refresh() override;
 
+    void RenderExplorer();
+    std::vector<std::string> GetDirectories(const std::string& path);
     void ExportFile(const std::string& directory);
 
     static constexpr uint16_t ACTIVE_SKILL_SIZE = 800;
@@ -59,5 +61,9 @@ public:
 
 private:
     SkillTab tab = SkillTab::ACTIVE;
+
+    std::string currentDirectory;
+    std::vector<std::string> directories;
+    bool renderExplorer = false;
 };
 static SkillPanel* skillPanel = SkillPanel::GetInstance();
