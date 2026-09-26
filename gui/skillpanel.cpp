@@ -1,11 +1,20 @@
 #include "skillpanel.h"
 #include "signaturescan.h"
+#include <fstream>
+#include <thread>
 
 using std::format;
 
 // Skill Panel
 void SkillPanel::RenderLogic()
 {
+	if (ImGui::Button("Export Table"))
+	{
+		ExportFile("TABLE");
+		//std::thread t(&SkillPanel::ExportFile,this, "TABLE");
+		//t.detach();
+	}
+
 	SearchablePanel::RenderLogic();
 	if (ImGui::BeginTabBar(label.c_str()))
 	{
@@ -140,10 +149,10 @@ void SkillPanel::InspectorLogic()
 
 void SkillPanel::ApplyChanges()
 {
-	std::memcpy(activeSkillsPTR, activeSkillArray.data(), activeSkillArray.size() * sizeof(ActiveSkill));
-	std::memcpy(skillElementPtr, skillElementArray.data(), skillElementArray.size() * sizeof(SkillElement));
-	std::memcpy(technicalPtr, technicalArray.data(), technicalArray.size() * sizeof(Technical));
-	std::memcpy(traitsPtr, traitsArray.data(), traitsArray.size() * sizeof(Trait));
+	std::memcpy(activeSkillsPTR, activeSkillArray.data(), sizeof(activeSkillArray));
+	std::memcpy(skillElementPtr, skillElementArray.data(), sizeof(skillElementArray));
+	std::memcpy(technicalPtr, technicalArray.data(), sizeof(technicalArray));
+	std::memcpy(traitsPtr, traitsArray.data(), sizeof(traitsArray));
 }
 
 void SkillPanel::Refresh()
@@ -152,4 +161,124 @@ void SkillPanel::Refresh()
 	skillElementArray = *skillElementPtr;
 	technicalArray = *technicalPtr;
 	traitsArray = *traitsPtr;
+}
+
+void SkillPanel::ExportFile(const std::string& directory)
+{
+	std::vector<BYTE> fileBytes;
+
+	// Repeating swaps to get this back to big endian.
+	uint32_t elementSize = _byteswap_ulong(sizeof(skillElementArray));
+	fileBytes.insert(fileBytes.end(), (BYTE*)&elementSize, (BYTE*)&elementSize + 4);
+
+	std::array<BYTE, sizeof(skillElementArray)>* skillElementBytes = new std::array<BYTE,sizeof(skillElementArray)>;
+	std::memcpy(skillElementBytes->data(), skillElementArray.data(), sizeof(skillElementArray));
+
+	for (int i = 8; i < skillElementBytes->size(); i+=8)
+	{
+		uint32_t* bytesToSwap = (uint32_t*)(skillElementBytes->data() + i - 4);
+		*bytesToSwap = _byteswap_ulong(*bytesToSwap);
+	}
+	fileBytes.insert(fileBytes.end(), (BYTE*)skillElementBytes, (BYTE*)skillElementBytes + sizeof(*skillElementBytes));
+	
+	fileBytes.insert(fileBytes.end(), 12, 0);
+
+	delete(skillElementBytes);
+
+	uint32_t activeSkillSize = _byteswap_ulong(sizeof(activeSkillArray));
+	fileBytes.insert(fileBytes.end(), (BYTE*)&activeSkillSize, (BYTE*)&activeSkillSize + 4);
+
+	std::array<BYTE, sizeof(activeSkillArray)>* activeSkillBytes = new std::array<BYTE,sizeof(activeSkillArray)>;
+	std::memcpy(activeSkillBytes->data(), activeSkillArray.data(), sizeof(activeSkillArray));
+
+	for (int i = 0; i < activeSkillBytes->size(); i += sizeof(ActiveSkill))
+	{
+		DWORD_PTR byteBase = (DWORD_PTR)(activeSkillBytes->data() + i);
+
+		uint32_t* bit32Swap = (uint32_t*)byteBase;
+		*bit32Swap = _byteswap_ulong(*bit32Swap);
+
+		uint16_t* bit16Swap = (uint16_t*)(byteBase + 4);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		bit32Swap = (uint32_t*)(byteBase + 0x20);
+		*bit32Swap = _byteswap_ulong(*bit32Swap);
+
+		bit16Swap = (uint16_t*)(byteBase + 8);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		bit16Swap = (uint16_t*)(byteBase + 10);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		bit16Swap = (uint16_t*)(byteBase + 24);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		bit16Swap = (uint16_t*)(byteBase + 28);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		bit32Swap = (uint32_t*)(byteBase + 36);
+		*bit32Swap = _byteswap_ulong(*bit32Swap);
+
+		bit32Swap = (uint32_t*)(byteBase + 40);
+		*bit32Swap = _byteswap_ulong(*bit32Swap);
+
+		bit32Swap = (uint32_t*)(byteBase + 16);
+		*bit32Swap = _byteswap_ulong(*bit32Swap);
+	}
+	fileBytes.insert(fileBytes.end(), (BYTE*)activeSkillBytes->data(), (BYTE*)activeSkillBytes->data() + sizeof(activeSkillArray));
+	fileBytes.insert(fileBytes.end(), 12, 0);
+
+	delete(activeSkillBytes);
+
+	uint32_t technicalSize = _byteswap_ulong(sizeof(technicalArray));
+	fileBytes.insert(fileBytes.end(), (BYTE*)&technicalSize, (BYTE*)&technicalSize + 4);
+
+	std::array<BYTE, sizeof(technicalArray)> technicalBytes;
+	std::memcpy(technicalBytes.data(), technicalArray.data(), sizeof(technicalArray));
+
+	for (int i = 0; i < technicalBytes.size(); i += 4)
+	{
+		uint32_t* bit32Swap = (uint32_t*)(technicalBytes.data() + i);
+		*bit32Swap = _byteswap_ulong(*bit32Swap);
+	}
+	fileBytes.insert(fileBytes.end(), (BYTE*)technicalBytes.data(), (BYTE*)technicalBytes.data() + sizeof(technicalBytes));
+	fileBytes.insert(fileBytes.end(), 4, 0);
+
+	uint32_t traitSize = _byteswap_ulong(sizeof(traitsArray));
+	fileBytes.insert(fileBytes.end(), (BYTE*)&traitSize, (BYTE*)&traitSize + 4);
+
+	std::array<BYTE, sizeof(traitsArray)> traitBytes;
+	std::memcpy(traitBytes.data(), traitsArray.data(), sizeof(traitsArray));
+
+	for (int i = 0; i < traitBytes.size(); i += sizeof(Trait))
+	{
+		DWORD_PTR byteBase = (DWORD_PTR)(traitBytes.data() + i);
+
+		uint16_t* bit16Swap = (uint16_t*)(byteBase);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		bit16Swap = (uint16_t*)(byteBase + 2);
+		*bit16Swap = _byteswap_ushort(*bit16Swap);
+
+		for (int j = 4; j < sizeof(Trait); j += 4)
+		{
+			uint32_t* bit32Swap = (uint32_t*)(byteBase + j);
+			*bit32Swap = _byteswap_ulong(*bit32Swap);
+		}
+	}
+	fileBytes.insert(fileBytes.end(), (BYTE*)traitBytes.data(), (BYTE*)traitBytes.data() + sizeof(traitBytes));
+	fileBytes.insert(fileBytes.end(), 8, 0);
+
+	std::ofstream file("SKILL.TBL", std::ios::binary);
+
+	if (!file.is_open())
+	{
+		DWORD error = GetLastError();
+		printf("File failed to write! Error Code: 0x%x\n",error);
+		return;
+	}
+
+	file.write((const char*)fileBytes.data(), fileBytes.size());
+	file.close();
+	printf("Successfully wrote to %s\n", directory.c_str());
 }

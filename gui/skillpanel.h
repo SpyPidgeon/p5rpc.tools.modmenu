@@ -26,6 +26,8 @@ public:
     void ApplyChanges() override;
     void Refresh() override;
 
+    void ExportFile(const std::string& directory);
+
     static constexpr uint16_t ACTIVE_SKILL_SIZE = 800;
     static constexpr uint16_t SKILL_ELEMENT_SIZE = 1056;
     static constexpr uint8_t TECHNICAL_SIZE = 17;
