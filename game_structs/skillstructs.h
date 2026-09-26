@@ -286,9 +286,9 @@ struct ActiveSkill
 	EffectType effectType;
 	uint8_t effectChance;
 	CommonAilments commonAilments1;
-	uint8_t unk6;
-	SpecialAilments specialAilments;
 	CommonAilments2 commonAilments2;
+	SpecialAilments specialAilments;
+	uint8_t unk6;
 	BuffsAndDebuffs buffsAndDebuffs;
 	CommonBuffs commonBuffs;
 	BreakSkills breakSkills;
@@ -308,7 +308,7 @@ static_assert(sizeof(ActiveSkill) == 48, "ActiveSkill size must be 48 bytes.");
 IMGUI_REFLECT
 (ActiveSkill, casterEffect2, casterEffect1, conditionUsage, unkr0, areaType, unkr1, damageStatType, costType, cost, skillType, multiplyCost, targetType,
 	validTargetFlags, targetRestrictions, unk0, unk1, unk2, unk3, unk4, accuracy, minHits, maxHits, damageOrHeal, damageValue, spEffect, unk5, spRestoreValue,
-	effectType, effectChance, commonAilments1, unk6, specialAilments, commonAilments2, buffsAndDebuffs, commonBuffs, breakSkills, shields, otherBuffs,
+	effectType, effectChance, unk6,commonAilments1, specialAilments, commonAilments2, buffsAndDebuffs, commonBuffs, breakSkills, shields, otherBuffs,
 	reserve, unkr2, extraEffects, critChance, forItem, unk7);
 
 //-------------------------------------------

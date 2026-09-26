@@ -4346,7 +4346,6 @@ namespace ImReflect {
 			ImGui::PopTextWrapPos();
 
 			uint64_t int_value = static_cast<uint64_t>(value);
-			int row = 1;
 			for (uint32_t i = 0; i < enum_values.size(); i++)
 			{
 				const auto& value = enum_values[i];
@@ -4358,7 +4357,6 @@ namespace ImReflect {
 
 				if ((i + 1) % 3 == 0)
 				{
-					row++;
 					changeRow = true;
 				}
 				

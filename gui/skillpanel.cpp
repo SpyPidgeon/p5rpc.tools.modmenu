@@ -149,7 +149,7 @@ void SkillPanel::InspectorLogic()
 	{
 		auto& selected = traitsArray[selectedIndex];
 		ImReflect::Input(traitNamesArray[selectedIndex].c_str(), selected, config);
-		ImGui::LabelText("##warning", "Warning: element flags after Almighty are untested.");
+		ImGui::LabelText("##warning", "Warning: flags after Almighty are untested.");
 		ImGui::InputInt("Sub Trait ID", (int*)&selected.elementFlags);
 		break;
 	}
@@ -277,6 +277,8 @@ void SkillPanel::ExportFile(const std::string& directory)
 	fileBytes.insert(fileBytes.end(), (BYTE*)traitBytes->data(), (BYTE*)traitBytes->data() + sizeof(*traitBytes));
 	fileBytes.insert(fileBytes.end(), 8, 0);
 
+	delete(traitBytes);
+
 	std::ofstream file(currentDirectory + '\\' + "SKILL.TBL", std::ios::binary);
 
 	if (!file.is_open())
@@ -343,13 +345,15 @@ void SkillPanel::RenderExplorer()
 	ImGui::End();
 }
 
+namespace fs = std::filesystem;
+
 std::vector<std::string> SkillPanel::GetDirectories(const std::string& path)
 {
 	std::vector<std::string> folders;
 
-	for (const auto& entry : std::filesystem::directory_iterator(path))
+	for (const auto& entry : fs::directory_iterator(path))
 	{
-		if (std::filesystem::is_directory(entry.status()))
+		if (fs::is_directory(entry.status()) && !entry.is_symlink())
 		{
 			folders.push_back(entry.path().filename().string());
 		}
