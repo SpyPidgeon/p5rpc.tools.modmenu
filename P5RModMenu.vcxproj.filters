@@ -114,6 +114,12 @@
     <ClInclude Include="vectormath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gui\itempanel.h">
+      <Filter>Source Files\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="game_structs\itemstructs.h">
+      <Filter>Source Files\game_structs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -183,6 +189,9 @@
       <Filter>Source Files\panels</Filter>
     </ClCompile>
     <ClCompile Include="gui\flowscriptpanel.cpp">
+      <Filter>Source Files\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\itempanel.cpp">
       <Filter>Source Files\panels</Filter>
     </ClCompile>
   </ItemGroup>

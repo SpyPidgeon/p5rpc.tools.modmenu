@@ -154,6 +154,7 @@
     <ClInclude Include="game_structs\battlestructs.h" />
     <ClInclude Include="game_structs\filestructs.h" />
     <ClInclude Include="game_structs\guistructs.h" />
+    <ClInclude Include="game_structs\itemstructs.h" />
     <ClInclude Include="game_structs\skillstructs.h" />
     <ClInclude Include="gui\displaystructwindow.h" />
     <ClInclude Include="gui\filepanel.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="gui\imguistyling.h" />
     <ClInclude Include="gui\ImReflect.hpp" />
     <ClInclude Include="gui\inventorypanel.h" />
+    <ClInclude Include="gui\itempanel.h" />
     <ClInclude Include="gui\panels.h" />
     <ClInclude Include="gui\partypanel.h" />
     <ClInclude Include="gui\quickpanel.h" />
@@ -188,6 +190,7 @@
     <ClCompile Include="gui\flowscriptpanel.cpp" />
     <ClCompile Include="gui\imguistyling.cpp" />
     <ClCompile Include="gui\inventorypanel.cpp" />
+    <ClCompile Include="gui\itempanel.cpp" />
     <ClCompile Include="gui\panels.cpp" />
     <ClCompile Include="gui\partypanel.cpp" />
     <ClCompile Include="gui\quickpanel.cpp" />

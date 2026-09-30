@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <functional>
+#include <filesystem>
+#include <fstream>
 #include "filestructs.h"
 #include "battlestructs.h"
 #include "skillstructs.h"
@@ -73,4 +75,21 @@ struct SearchablePanel : Panel
             }
         }
     }
+};
+
+class Exportable
+{
+public:
+
+    void RenderButton();
+    void RenderExplorer();
+    std::vector<std::string> GetDirectories(const std::string& path);
+
+    virtual void ExportFile(const std::string& directory) {}
+
+    static std::string currentDirectory;
+    static std::vector<std::string> directories;
+    bool renderExplorer = false;
+
+private:
 };
