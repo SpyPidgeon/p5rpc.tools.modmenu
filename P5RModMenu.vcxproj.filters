@@ -120,6 +120,9 @@
     <ClInclude Include="game_structs\itemstructs.h">
       <Filter>Source Files\game_structs</Filter>
     </ClInclude>
+    <ClInclude Include="hooks\exportable.h">
+      <Filter>Source Files\hooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="gui\itempanel.cpp">
       <Filter>Source Files\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\exportable.cpp">
+      <Filter>Source Files\hooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

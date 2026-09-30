@@ -6,6 +6,7 @@
 #include "filestructs.h"
 #include "battlestructs.h"
 #include "skillstructs.h"
+#include "itemstructs.h"
 
 std::string GetNameFromBinary(const uint32_t currentIndex, const uintptr_t nameAddress);
 
@@ -75,21 +76,4 @@ struct SearchablePanel : Panel
             }
         }
     }
-};
-
-class Exportable
-{
-public:
-
-    void RenderButton();
-    void RenderExplorer();
-    std::vector<std::string> GetDirectories(const std::string& path);
-
-    virtual void ExportFile(const std::string& directory) {}
-
-    static std::string currentDirectory;
-    static std::vector<std::string> directories;
-    bool renderExplorer = false;
-
-private:
 };

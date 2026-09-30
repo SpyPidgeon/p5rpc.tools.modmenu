@@ -168,6 +168,7 @@
     <ClInclude Include="gui\quickpanel.h" />
     <ClInclude Include="gui\skillpanel.h" />
     <ClInclude Include="hooks\dx11_detour.h" />
+    <ClInclude Include="hooks\exportable.h" />
     <ClInclude Include="hooks\gamehooks.h" />
     <ClInclude Include="hooks\signaturescan.h" />
     <ClInclude Include="imgui\backends\imgui_impl_dx11.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="gui\quickpanel.cpp" />
     <ClCompile Include="gui\skillpanel.cpp" />
     <ClCompile Include="hooks\dx11_detour.cpp" />
+    <ClCompile Include="hooks\exportable.cpp" />
     <ClCompile Include="hooks\gamehooks.cpp" />
     <ClCompile Include="hooks\signaturescan.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_dx11.cpp" />

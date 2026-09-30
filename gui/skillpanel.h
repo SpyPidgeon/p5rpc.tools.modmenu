@@ -1,5 +1,6 @@
 #pragma once
 #include "panels.h"
+#include "exportable.h"
 
 enum class SkillTab
 {
@@ -12,7 +13,7 @@ enum class SkillTab
 class SkillPanel : SearchablePanel, Exportable
 {
 public:
-    SkillPanel() { this->label = "Skill Table"; currentDirectory = GetDLLPath(""); }
+    SkillPanel() { this->label = "Skill Table"; }
 
     static SkillPanel* GetInstance()
     {

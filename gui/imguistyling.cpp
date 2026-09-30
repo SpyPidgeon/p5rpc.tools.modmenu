@@ -82,7 +82,7 @@ void SetImReflectConfig()
 	config.push_member<&Technical::applicableAilments>()
 		.as_flags()
 		.pop();
-	
+
 	config.push_member<&Trait::flags>()
 		.as_flags()
 		.pop();

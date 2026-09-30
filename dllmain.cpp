@@ -9,6 +9,7 @@
 #include "dx11_detour.h"
 #include "panels.h"
 #include "gamehooks.h"
+#include "exportable.h"
 
 HMODULE dll_handle;
 extern ImFont* windowFont;
@@ -23,6 +24,8 @@ void InitScan()
     {
         panel->ScanValues();
     }
+
+    Exportable::currentDirectory = GetDLLPath("");
 
     pattern = "48 8B C4 48 81 EC 98 00 00 00 80 3D ? ? ? ? 00";
     oMouseState = (MouseState)PatternScan(GetModuleHandle(NULL), pattern);
