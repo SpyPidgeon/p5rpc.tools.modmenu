@@ -126,4 +126,11 @@ void SetImReflectConfig()
 		.min(0)
 		.max(99)
 		.pop();
+
+	config.push<EquippableUser>()
+		.as_flags()
+		.pop();
+	config.push<ItemType>()
+		.as_flags()
+		.pop();
 }

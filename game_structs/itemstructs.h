@@ -45,16 +45,17 @@ struct magic_enum::customize::enum_range<ItemType>
 
 enum class EquippableUser : int
 {
-	Joker = 1 << 0,
-	Ryuji = 1 << 1,
-	Morgana = 1 << 2,
-	Ann = 1 << 3,
-	Yusuke = 1 << 4,
-	Makoto = 1 << 5,
-	Haru = 1 << 6,
-	Futaba = 1 << 7,
-	Akechi = 1 << 8,
-	Kasumi = 1 << 9
+    Anyone = 1 << 0,
+	Joker = 1 << 1,
+	Ryuji = 1 << 2,
+	Morgana = 1 << 3,
+	Ann = 1 << 4,
+	Yusuke = 1 << 5,
+	Makoto = 1 << 6,
+	Haru = 1 << 7,
+	Futaba = 1 << 8,
+	Akechi = 1 << 9,
+	Kasumi = 1 << 10
 };
 
 template<>
@@ -311,53 +312,54 @@ struct AccessoryItem
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(AccessoryItem))
         {
-            void* byteBase = (BYTE*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             for (int j = 0; j < 12; j += 4)
             {
-                uint32_t* bit32Swap = (uint32_t*)(BYTE*)byteBase + j;
+                uint32_t* bit32Swap = (uint32_t*)(byteBase + j);
                 *bit32Swap = _byteswap_ulong(*bit32Swap);
             }
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 12;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 12);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x14;
+            bit16Swap = (uint16_t*)(byteBase + 0x14);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x16;
+            bit16Swap = (uint16_t*)(byteBase + 0x16);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x18;
+            bit16Swap = (uint16_t*)((byteBase + 0x18));
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1a;
+            bit16Swap = (uint16_t*)(byteBase + 0x1a);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1c;
+            bit16Swap = (uint16_t*)(byteBase + 0x1c);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            uint32_t* bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x20;
+            uint32_t* bit32Swap = (uint32_t*)(byteBase + 0x20);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x24;
+            bit32Swap = (uint32_t*)(byteBase + 0x24);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x2c;
+            bit32Swap = (uint32_t*)(byteBase + 0x2c);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x30;
+            bit32Swap = (uint32_t*)(byteBase + 0x30);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x34;
+            bit32Swap = (uint32_t*)(byteBase + 0x34);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x38;
+            bit32Swap = (uint32_t*)(byteBase + 0x38);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x3c;
+            bit32Swap = (uint32_t*)(byteBase + 0x3c);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
         }
     }
 
 	ItemType icon;
+    uint16_t shopMenuSort;
 	uint16_t fieldMenuSort;
-	uint16_t shopMenuSort;
 	EquippableUser equippableUser;
+    
     ShowInShop showInShop;
 	ItemStatBoost statBoosts;
 	uint8_t RESERVE;
@@ -382,59 +384,59 @@ struct Armor
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(Armor))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x8;
+            bit32Swap = (uint32_t*)(byteBase + 0x8);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xc;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0xc);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xe;
+            bit16Swap = (uint16_t*)(byteBase + 0xe);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x10;
+            bit16Swap = (uint16_t*)(byteBase + 0x10);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x18;
+            bit16Swap = (uint16_t*)(byteBase + 0x18);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1a;
+            bit16Swap = (uint16_t*)(byteBase + 0x1a);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1c;
+            bit16Swap = (uint16_t*)(byteBase + 0x1c);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1e;
+            bit16Swap = (uint16_t*)(byteBase + 0x1e);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x20;
+            bit16Swap = (uint16_t*)(byteBase + 0x20);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x24;
+            bit32Swap = (uint32_t*)(byteBase + 0x24);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x28;
+            bit32Swap = (uint32_t*)(byteBase + 0x28);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x2e;
+            bit16Swap = (uint16_t*)(byteBase + 0x2e);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
         }
     }
 
     ItemType icon;
-    uint16_t weaponMenuSort;
     uint16_t weaponShopSort;
+    uint16_t weaponMenuSort;
     EquippableUser equippableUser;
+    ShowInShop showInShop;
     uint16_t defense;
     uint16_t evasion;
-    ShowInShop showInShop;
     ItemStatBoost statBoosts;
     uint8_t RESERVE;
     std::array<GearEffect, 3> gearEffects;
@@ -480,42 +482,42 @@ struct Consumable
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(Consumable))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x8;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0x8);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xa;
+            bit16Swap = (uint16_t*)(byteBase + 0xa);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xc;
+            bit16Swap = (uint16_t*)(byteBase + 0xc);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x10;
+            bit32Swap = (uint32_t*)(byteBase + 0x10);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x14;
+            bit32Swap = (uint32_t*)(byteBase + 0x14);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x1c;
+            bit32Swap = (uint32_t*)(byteBase + 0x1c);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x20;
+            bit32Swap = (uint32_t*)(byteBase + 0x20);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x24;
+            bit32Swap = (uint32_t*)(byteBase + 0x24);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x28;
+            bit32Swap = (uint32_t*)(byteBase + 0x28);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x2c;
+            bit32Swap = (uint32_t*)(byteBase + 0x2c);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
         }
     }
@@ -542,15 +544,15 @@ struct KeyItem
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(KeyItem))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x8;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0x8);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
         }
     }
@@ -569,39 +571,39 @@ struct Treasure
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(Treasure))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x8;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0x8);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xa;
+            bit16Swap = (uint16_t*)(byteBase + 0xa);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0xc;
+            bit32Swap = (uint32_t*)(byteBase + 0xc);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x10;
+            bit32Swap = (uint32_t*)(byteBase + 0x10);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x18;
+            bit32Swap = (uint32_t*)(byteBase + 0x18);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x1c;
+            bit32Swap = (uint32_t*)(byteBase + 0x1c);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x20;
+            bit32Swap = (uint32_t*)(byteBase + 0x20);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x24;
+            bit32Swap = (uint32_t*)(byteBase + 0x24);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x28;
+            bit32Swap = (uint32_t*)(byteBase + 0x28);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
         }
     }
@@ -626,56 +628,57 @@ struct Melee
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(Melee))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x8;
+            bit32Swap = (uint32_t*)(byteBase + 0x8);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xc;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0xc);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x10;
+            bit16Swap = (uint16_t*)(byteBase + 0x10);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x12;
+            bit16Swap = (uint16_t*)(byteBase + 0x12);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1a;
+            bit16Swap = (uint16_t*)(byteBase + 0x1a);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1c;
+            bit16Swap = (uint16_t*)(byteBase + 0x1c);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1e;
+            bit16Swap = (uint16_t*)(byteBase + 0x1e);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x20;
+            bit16Swap = (uint16_t*)(byteBase + 0x20);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x22;
+            bit16Swap = (uint16_t*)(byteBase + 0x22);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x24;
+            bit32Swap = (uint32_t*)(byteBase + 0x24);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x28;
+            bit32Swap = (uint32_t*)(byteBase + 0x28);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x2e;
+            bit16Swap = (uint16_t*)(byteBase + 0x2e);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
         }
     }
 
     ItemType icon;
-    uint16_t fieldSort;
     uint16_t shopSort;
+    uint16_t fieldSort;
     EquippableUser users;
+    
     ShowInShop showInShop;
     uint16_t RESERVE;
     uint16_t attack;
@@ -694,7 +697,6 @@ struct Melee
 IMGUI_REFLECT(Melee,icon, fieldSort, shopSort, users, showInShop, RESERVE, attack, accuracy, statBoost, RESERVE2, gearEffects, level, value, price, 
     sellPrice, monthAvailable, dayAvailable, unk);
 
-#pragma pack(push,1)
 struct Outfit
 {
     static constexpr int OUTFIT_SIZE = 286;
@@ -702,51 +704,50 @@ struct Outfit
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(Outfit))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x8;
+            bit32Swap = (uint32_t*)(byteBase + 0x8);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xc;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0xc);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xe;
+            bit16Swap = (uint16_t*)(byteBase + 0xe);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x10;
+            bit16Swap = (uint16_t*)(byteBase + 0x10);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x12;
+            bit16Swap = (uint16_t*)(byteBase + 0x12);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x14;
+            bit32Swap = (uint32_t*)(byteBase + 0x14);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x18;
+            bit32Swap = (uint32_t*)(byteBase + 0x18);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
         }
     }
 
     ItemType icon;
-    uint16_t fieldSort;
     uint16_t shopSort;
+    uint16_t fieldSort;
     EquippableUser users;
+    
     std::array<GearEffect, 3> gearEffects;
     uint32_t price;
     uint32_t sellPrice;
     Month monthAvailable;
     uint8_t dayAvailable;
     uint16_t RESERVE;
-    uint16_t RESERVE2;
 };
-#pragma pack(pop)
-IMGUI_REFLECT(Outfit, icon, fieldSort, shopSort, users, gearEffects, price, sellPrice, monthAvailable, dayAvailable, RESERVE, RESERVE2);
+IMGUI_REFLECT(Outfit, icon, fieldSort, shopSort, users, gearEffects, price, sellPrice, monthAvailable, dayAvailable, RESERVE);
 
 struct SkillCard
 {
@@ -755,30 +756,30 @@ struct SkillCard
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(SkillCard))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x8;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0x8);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xa;
+            bit16Swap = (uint16_t*)(byteBase + 0xa);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xc;
+            bit16Swap = (uint16_t*)(byteBase + 0xc);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xe;
+            bit16Swap = (uint16_t*)(byteBase + 0xe);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x10;
+            bit16Swap = (uint16_t*)(byteBase + 0x10);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x14;
+            bit32Swap = (uint32_t*)(byteBase + 0x14);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
         }
     }
@@ -845,54 +846,54 @@ struct RangedWeapon
     {
         for (int i = 0; i < sizeof(*arr); i += sizeof(RangedWeapon))
         {
-            void* byteBase = (char*)arr + i;
+            DWORD_PTR byteBase = (DWORD_PTR)arr + i;
 
             uint32_t* bit32Swap = (uint32_t*)byteBase;
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x4;
+            bit32Swap = (uint32_t*)(byteBase + 0x4);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x8;
+            bit32Swap = (uint32_t*)(byteBase + 0x8);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            uint16_t* bit16Swap = (uint16_t*)(BYTE*)byteBase + 0xc;
+            uint16_t* bit16Swap = (uint16_t*)(byteBase + 0xc);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x10;
+            bit16Swap = (uint16_t*)(byteBase + 0x10);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x12;
+            bit16Swap = (uint16_t*)(byteBase + 0x12);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x14;
+            bit16Swap = (uint16_t*)(byteBase + 0x14);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1c;
+            bit16Swap = (uint16_t*)(byteBase + 0x1c);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x1e;
+            bit16Swap = (uint16_t*)(byteBase + 0x1e);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x20;
+            bit16Swap = (uint16_t*)(byteBase + 0x20);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x22;
+            bit16Swap = (uint16_t*)(byteBase + 0x22);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit16Swap = (uint16_t*)(BYTE*)byteBase + 0x24;
+            bit16Swap = (uint16_t*)(byteBase + 0x24);
             *bit16Swap = _byteswap_ushort(*bit16Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x28;
+            bit32Swap = (uint32_t*)(byteBase + 0x28);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            bit32Swap = (uint32_t*)(BYTE*)byteBase + 0x2c;
+            bit32Swap = (uint32_t*)(byteBase + 0x2c);
             *bit32Swap = _byteswap_ulong(*bit32Swap);
 
-            void* byteBase2 = (char*)(BYTE*)byteBase + 0x34;
+            DWORD_PTR byteBase2 = (DWORD_PTR)(byteBase + 0x34);
             for (int j = 2; j != 0; j--)
             {
-                byteBase2 = (char*)byteBase2 + 0x28;
+                byteBase2 = (DWORD_PTR)byteBase2 + 0x28;
 
                 bit16Swap = (uint16_t*)byteBase2 - 0x2a;
                 *bit16Swap = _byteswap_ushort(*bit16Swap);
@@ -958,9 +959,10 @@ struct RangedWeapon
     }
 
     ItemType icon;
-    uint16_t fieldSort;
     uint16_t shopSort;
+    uint16_t fieldSort;
     EquippableUser users;
+    
     ShowInShop showInShop;
     ElementalType element;
     uint8_t RESERVE;

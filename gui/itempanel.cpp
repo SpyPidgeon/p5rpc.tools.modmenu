@@ -120,31 +120,31 @@ void ItemPanel::InspectorLogic()
 	switch (selectedTab)
 	{
 	case ItemTab::Accessory:
-		ImReflect::Input("Accessory", items.accessories.at(selectedIndex));
+		ImReflect::Input("Accessory", items.accessories.at(selectedIndex),config);
 		break;
 	case ItemTab::Armor:
-		ImReflect::Input("Armor", items.armors.at(selectedIndex));
+		ImReflect::Input("Armor", items.armors.at(selectedIndex),config);
 		break;
 	case ItemTab::Consumable:
-		ImReflect::Input("Consumable", items.consumables.at(selectedIndex));
+		ImReflect::Input("Consumable", items.consumables.at(selectedIndex), config);
 		break;
 	case ItemTab::KeyItem:
-		ImReflect::Input("Key Item", items.keyItems.at(selectedIndex));
+		ImReflect::Input("Key Item", items.keyItems.at(selectedIndex), config);
 		break;
 	case ItemTab::Treasure:
-		ImReflect::Input("Treasure", items.treasures.at(selectedIndex));
+		ImReflect::Input("Treasure", items.treasures.at(selectedIndex), config);
 		break;
 	case ItemTab::Melee:
-		ImReflect::Input("Melee", items.melees.at(selectedIndex));
+		ImReflect::Input("Melee", items.melees.at(selectedIndex), config);
 		break;
 	case ItemTab::Outfit:
-		ImReflect::Input("Outfit", items.outfits.at(selectedIndex));
+		ImReflect::Input("Outfit", items.outfits.at(selectedIndex), config);
 		break;
 	case ItemTab::SkillCard:
-		ImReflect::Input("Skill Card", items.skillCards.at(selectedIndex));
+		ImReflect::Input("Skill Card", items.skillCards.at(selectedIndex), config);
 		break;
 	case ItemTab::RangedWeapon:
-		ImReflect::Input("Ranged Weapon", items.rangedWeapons.at(selectedIndex));
+		ImReflect::Input("Ranged Weapon", items.rangedWeapons.at(selectedIndex), config);
 		break;
 	}
 }
@@ -194,7 +194,7 @@ void ItemPanel::ExportFile(const std::string& directory)
 
 	uint32_t armorSize = sizeof(items.armors);
 	armorSize = _byteswap_ulong(armorSize);
-	fileBytes.insert(fileBytes.end(), (BYTE*)&armorSize, (BYTE*)armorSize + 4);
+	fileBytes.insert(fileBytes.end(), (BYTE*)&armorSize, (BYTE*)&armorSize + 4);
 
 	std::array<Armor, Armor::ARMOR_SIZE>* armorBytes = new std::array<Armor, Armor::ARMOR_SIZE>;
 	std::memcpy(armorBytes->data(), items.armors.data(), sizeof(items.armors));
