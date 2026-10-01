@@ -13,28 +13,45 @@ void SkillPanel::RenderLogic()
 	{
 		if (ImGui::BeginTabItem("Active Skill"))
 		{
-			tab = SkillTab::ACTIVE;
+			if (tab != SkillTab::ACTIVE)
+			{
+				tab = SkillTab::ACTIVE;
+				selectedIndex = 0;
+			}
+
 			RenderList(&activeSkillArray, &skillNames);
 			ImGui::EndTabItem();
 		}
 
 		if (ImGui::BeginTabItem("Skill Element"))
 		{
-			tab = SkillTab::ELEMENT;
+			if (tab != SkillTab::ELEMENT)
+			{
+				tab = SkillTab::ELEMENT;
+				selectedIndex = 0;
+			}
 			RenderList(&skillElementArray, &skillNames);
 			ImGui::EndTabItem();
 		}
 
 		if (ImGui::BeginTabItem("Technical Combos"))
 		{
-			tab = SkillTab::TECHNICAL;
+			if (tab != SkillTab::TECHNICAL)
+			{
+				tab = SkillTab::TECHNICAL;
+				selectedIndex = 0;
+			}
 			RenderListNoName(&technicalArray, "Technical Combo");
 			ImGui::EndTabItem();
 		}
 
 		if (ImGui::BeginTabItem("Traits"))
 		{
-			tab = SkillTab::TRAIT;
+			if (tab != SkillTab::TRAIT)
+			{
+				tab = SkillTab::TRAIT;
+				selectedIndex = 0;
+			}
 			RenderList(&traitsArray, &traitNamesArray);
 			ImGui::EndTabItem();
 		}
