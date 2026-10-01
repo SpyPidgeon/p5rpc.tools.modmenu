@@ -121,30 +121,84 @@ void ItemPanel::InspectorLogic()
 	{
 	case ItemTab::Accessory:
 		ImReflect::Input("Accessory", items.accessories.at(selectedIndex),config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.accessories->at(selectedIndex) = items.accessories.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::Armor:
 		ImReflect::Input("Armor", items.armors.at(selectedIndex),config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.armors->at(selectedIndex) = items.armors.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::Consumable:
 		ImReflect::Input("Consumable", items.consumables.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.consumables->at(selectedIndex) = items.consumables.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::KeyItem:
 		ImReflect::Input("Key Item", items.keyItems.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.keyItems->at(selectedIndex) = items.keyItems.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::Treasure:
 		ImReflect::Input("Treasure", items.treasures.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.treasures->at(selectedIndex) = items.treasures.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::Melee:
 		ImReflect::Input("Melee", items.melees.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.melees->at(selectedIndex) = items.melees.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::Outfit:
 		ImReflect::Input("Outfit", items.outfits.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.outfits->at(selectedIndex) = items.outfits.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::SkillCard:
 		ImReflect::Input("Skill Card", items.skillCards.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.skillCards->at(selectedIndex) = items.skillCards.at(selectedIndex);
+		}
+
 		break;
 	case ItemTab::RangedWeapon:
 		ImReflect::Input("Ranged Weapon", items.rangedWeapons.at(selectedIndex), config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			itemPtrs.rangedWeapons->at(selectedIndex) = items.rangedWeapons.at(selectedIndex);
+		}
+
 		break;
 	}
 }

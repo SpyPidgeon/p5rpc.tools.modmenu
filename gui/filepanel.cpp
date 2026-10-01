@@ -1,5 +1,4 @@
 #include "filepanel.h"
-#include <bitset>
 #include "signaturescan.h"
 
 void FilePanel::ScanValues()
@@ -21,34 +20,52 @@ void tag_invoke(ImReflect::ImInput_t, const char* label, GFDFileInfo& value, ImS
 
 	ImGui::LabelText("Data0", "%i", value.data0);
 
-	std::string bitString = std::bitset<64>(value.data1).to_string();
-
 	ImVec2 size = ImVec2(0, 0);
 
-	ImGui::PushTextWrapPos(viewport->Size.x);
-	ImGui::LabelText("Data1", bitString.c_str());
-	ImGui::PopTextWrapPos();
+	ImGui::Separator();
+	ImGui::LabelText("Data1", "");
+	for (int i = 0; i < value.data1.size(); i++)
+	{
+		ImGui::PushID(i);
+		ImGui::LabelText("##value","0x%02X",value.data1[i]);
+		ImGui::PopID();
+	}
+	ImGui::Separator();
 
 	ImGui::LabelText("File Path", value.path.data());
 	ImGui::LabelText("File Address", "0x%012X", value.fileAddress);
 	ImGui::LabelText("File Size", "%i", value.fileSize);
-	ImGui::LabelText("Unknown", "%i", value.unknown);
+	ImGui::LabelText("Unknown1", "%i", value.unknown);
 
 	ImReflect::Detail::check_input_states(file_response);
 }
 
 void FilePanel::RenderLogic()
 {
-	//SearchablePanel::RenderLogic();
-    for (int i = 0; i < gfdFiles->size(); i++)
-    {
-		std::string path = std::format("{:03d} | {}",i,gfdFiles->at(i).path.data());
-
-		if (ImGui::Button(path.c_str()))
+	SearchablePanel::RenderLogic();
+	if (ImGui::BeginTabBar("Files"))
+	{
+		if (ImGui::BeginTabItem("Visual Objects"))
 		{
-			selectedIndex = i;
+			for (int i = 0; i < gfdFiles->size(); i++)
+			{
+
+				std::string path = std::format("{:03d} | {}", i, gfdFiles->at(i).path.data());
+
+				if (!TextMatch(searchText, path))
+					continue;
+
+				if (ImGui::Button(path.c_str()))
+				{
+					selectedIndex = i;
+				}
+			}
+
+			ImGui::EndTabItem();
 		}
-    }
+
+		ImGui::EndTabBar();
+	}
 }
 
 void FilePanel::InspectorLogic()

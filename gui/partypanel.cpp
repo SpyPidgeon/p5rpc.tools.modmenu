@@ -155,6 +155,12 @@ void PartyPanel::InspectorLogic()
 		break;
 	}
 
+	if (ImGui::Button("Apply To This"))
+	{
+		*partyMemberPTRs[selectedIndex] = partyMembers[selectedIndex].first;
+	}
+
+
 }
 
 void PartyPanel::RenderLogic()

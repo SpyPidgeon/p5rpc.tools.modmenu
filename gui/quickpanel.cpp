@@ -2,14 +2,21 @@
 
 void QuickPanel::RenderLogic()
 {
+	/*
 	if (ImGui::Button("Noclip"))
 	{
 		selectedIndex = QuickSelection::NOCLIP;
 	}
+	*/
 
 	if (ImGui::Button("Teleport"))
 	{
 		selectedIndex = QuickSelection::TELEPORT;
+	}
+
+	if (ImGui::Button("Field & Event"))
+	{
+		selectedIndex = QuickSelection::QUICK_FUNCTIONS;
 	}
 }
 
@@ -38,6 +45,19 @@ void QuickPanel::InspectorLogic()
 		}
 
 		break;
+	case QuickSelection::QUICK_FUNCTIONS:
+		ImReflect::Input("Event Parameters", eventParams);
+		if (ImGui::Button("Run Event"))
+		{
+			CallEvent();
+		}
+		ImGui::Separator();
+		ImReflect::Input("Field Parameters", fieldParams);
+		if (ImGui::Button("Run Field"))
+		{
+			CallField();
+		}
+		break;
 	}
 }
 
@@ -64,6 +84,17 @@ void QuickPanel::Teleport(const Vector3& position)
 
 	RUN_FLOWSCRIPT_BY_NAME(FLD_MODEL_SET_TRANSLATE,reshnd, position.x, position.y, position.z, 0);
 	RUN_FLOWSCRIPT_BY_NAME(FLD_MODEL_SYNC_TRANSLATE,reshnd);
+}
+
+void QuickPanel::CallEvent()
+{
+	RUN_FLOWSCRIPT_BY_NAME(CALL_EVENT, (float)eventParams.majorID, (float)eventParams.minorID);
+}
+
+void QuickPanel::CallField()
+{
+	RUN_FLOWSCRIPT_BY_NAME(CALL_FIELD, (float)fieldParams.majorID, (float)fieldParams.minorID, (float)fieldParams.entranceMajorID,
+		(float)fieldParams.entranceMajorID);
 }
 
 // Noclip

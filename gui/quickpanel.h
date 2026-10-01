@@ -26,9 +26,26 @@ enum KeyPressed : BYTE
 
 enum QuickSelection
 {
+	TELEPORT,
 	NOCLIP,
-	TELEPORT
+	QUICK_FUNCTIONS
 };
+
+struct CallFieldParams
+{
+	int majorID = 0;
+	int minorID = 0;
+	int entranceMajorID = 0;
+	int entranceMinorID = 0;
+};
+IMGUI_REFLECT(CallFieldParams, majorID, minorID, entranceMajorID, entranceMinorID);
+
+struct CallEventParams
+{
+	int majorID = 0;
+	int minorID = 0;
+};
+IMGUI_REFLECT(CallEventParams, majorID, minorID);
 
 class QuickPanel : Panel
 {
@@ -46,7 +63,13 @@ public:
 	BYTE keyState;
 	Vector3 teleport;
 
+	CallFieldParams fieldParams;
+	CallEventParams eventParams;
+
 	void SavePosition();
 	void Teleport(const Vector3& position);
+
+	void CallEvent();
+	void CallField();
 };
 static QuickPanel* quickPanel = QuickPanel::GetInstance();

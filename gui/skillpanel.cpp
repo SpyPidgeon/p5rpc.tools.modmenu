@@ -106,9 +106,21 @@ void SkillPanel::InspectorLogic()
 	{
 	case SkillTab::ACTIVE:
 		ImReflect::Input(skillNames[selectedIndex].c_str(), activeSkillArray[selectedIndex], config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			activeSkillsPTR->at(selectedIndex) = activeSkillArray[selectedIndex];
+		}
+
 		break;
 	case SkillTab::ELEMENT:
 		ImReflect::Input(skillNames[selectedIndex].c_str(), skillElementArray[selectedIndex], config);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			skillElementPtr->at(selectedIndex) = skillElementArray.at(selectedIndex);
+		}
+
 		break;
 	case SkillTab::TECHNICAL:
 	{
@@ -133,6 +145,12 @@ void SkillPanel::InspectorLogic()
 			}
 			ImGui::EndCombo();
 		}
+
+		if (ImGui::Button("Apply To This"))
+		{
+			technicalPtr->at(selectedIndex) = technicalArray.at(selectedIndex);
+		}
+
 		break;
 	}
 	case SkillTab::TRAIT:
@@ -141,6 +159,12 @@ void SkillPanel::InspectorLogic()
 		ImReflect::Input(traitNamesArray[selectedIndex].c_str(), selected, config);
 		ImGui::LabelText("##warning", "Warning: flags after Almighty are untested.");
 		ImGui::InputInt("Sub Trait ID", (int*)&selected.elementFlags);
+
+		if (ImGui::Button("Apply To This"))
+		{
+			technicalPtr->at(selectedIndex) = technicalArray.at(selectedIndex);
+		}
+
 		break;
 	}
 	}

@@ -6,7 +6,7 @@ constexpr uint8_t GFDPATH_MAX = 128;
 struct GFDFileInfo
 {
 	uint64_t data0;
-	uint64_t data1;
+	std::array<BYTE,8> data1;
 	std::array<char, GFDPATH_MAX> path;
 	DWORD_PTR fileAddress;
 	uint64_t fileSize;
